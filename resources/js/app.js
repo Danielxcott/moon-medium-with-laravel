@@ -2,8 +2,6 @@ import './bootstrap';
 import "../../node_modules/jquery/dist/jquery";
 import "../../node_modules/slick-carousel/slick/slick";
 import "../../node_modules/owl.carousel/dist/owl.carousel";
-import "../../node_modules/chart.js/dist/chart";
-
 
 $('.post-content .trend-post .trend-carousel').owlCarousel({
     loop:true,

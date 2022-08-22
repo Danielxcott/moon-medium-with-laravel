@@ -1,5 +1,8 @@
 @extends('layouts.app')
-
+@section("title") Login @stop
+@section("head")
+<link rel="stylesheet" href="{{ asset("css/form.css") }}">
+@endsection
 @section("login-content")
 <section class="login-form animate__animated animate__fadeInDown">
     <div class="login-left animate__animated animate__fadeInLeft delay-1">
@@ -143,10 +146,14 @@
                 </div>
                 <div class="sign-up-location">
                     <small>Don't have an account? Click here to</small>
-                    <b><a href="">Register Now</a></b>
+                    <b><a href="{{ route("register") }}">Register Now</a></b>
                 </div>
             </form>
         </div>
     </div>
 </section>
 @endsection
+@push("script")
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+<script src="{{ asset("js/sidebar.js") }}"></script>
+@endpush
