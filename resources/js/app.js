@@ -1,4 +1,4 @@
-import './bootstrap';
+import * as bootstrap from 'bootstrap';
 import "../../node_modules/jquery/dist/jquery";
 import "../../node_modules/slick-carousel/slick/slick";
 import "../../node_modules/owl.carousel/dist/owl.carousel";

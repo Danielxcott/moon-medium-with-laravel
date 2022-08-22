@@ -1,3 +1,7 @@
+@php
+use Illuminate\Support\Facades\Auth;
+@endphp
+
 <div class="nav">
     <div class="burger-nav">
         <div class="line1"></div>
@@ -27,7 +31,7 @@
         <div class="profile-group" id="dropbox-btn">
                 <div class="profile">
                     <div class="profile-name">
-                        <p class="mb-0">Lucien</p>
+                        <p class="mb-0">{{ ucwords(Auth::user()->name)}}</p>
                         <span class="text-black-50">Admin</span>
                     </div>
                     <img src="{{ asset("img/user/Teamwork-1.png") }}" class="user-profile" alt="">

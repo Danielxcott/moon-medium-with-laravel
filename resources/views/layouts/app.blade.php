@@ -7,7 +7,7 @@
     <title>@yield("title")</title>
     <link rel="shortcut icon" href="{{ asset("img/favicon.png") }}" type="image/x-icon">
     <!--Core Css File-->
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/mychart.js'])
+    @vite(['resources/css/app.css', 'resources/sass/app.scss' ,'resources/js/app.js', 'resources/js/mychart.js'])
     <!--CSS File-->
     <link rel="stylesheet" href="{{ asset("css/animate.css/animate.min.css") }}">
     <link rel="stylesheet" href="{{ asset("css/style.css") }}">
@@ -35,7 +35,6 @@
     @endguest
     <!--Core Js File-->
     <script src="{{ asset("js/jquery.min.js") }}"></script>
-    <script src="{{ asset("js/app.js") }}"></script>
     @stack("script")
 </body>
 </html>

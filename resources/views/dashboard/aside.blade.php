@@ -8,63 +8,13 @@
         <i class="fa-solid fa-angle-right" id="back-btn"></i>
     </div>
         <ul class="nav-list p-0">
-            <li class="sidebar-item" >
-                <a href="" class="sidebar-link">
-                    <div class="link-items">
-                        <i class="fa-solid fa-home"></i>
-                        <span class="sidebar-link-text">Dashboard</span>
-                    </div>
-            </a>
-            </li>
-            <li class="sidebar-item">
-                <a href="/views/dashboard/add-post.html" class="sidebar-link">
-                    <div class="link-items">
-                        <i class="fa-solid fa-file-circle-plus"></i>
-                        <span class="sidebar-link-text">Create Post</span>
-                    </div>
-                </a>
-            </li>
-            <li  class="sidebar-item">
-                <a href="/views/dashboard/add-category.html" class="sidebar-link">
-                    <div class="link-items">
-                        <i class="fa-solid fa-list-ul"></i>
-                        <span class="sidebar-link-text">Create Category</span>
-                    </div>
-                </a>
-            </li>
-            <li class="sidebar-item">
-                <a href="/views/dashboard/comment.html" class="sidebar-link">
-                    <div class="link-items">
-                        <i class="fa-solid fa-comments"></i>
-                        <span class="sidebar-link-text">Comments</span>
-                    </div>
-                </a>
-            </li>
-            <li class="sidebar-item">
-                <a href="/views/dashboard/user-request.html" class="sidebar-link">
-                    <div class="link-items">
-                        <i class="fa-solid fa-user-plus"></i>
-                        <span class="sidebar-link-text">New User Request</span>
-                    </div>
-                </a>
-            </li>
-            <li class="sidebar-item">
-                <a href="/views/dashboard/all-user.html" class="sidebar-link">
-                    <div class="link-items">
-                        <i class="fa-solid fa-users"></i>
-                        <span class="sidebar-link-text">All Users</span>
-                    </div>
-                </a>
-            </li>
-            <li class="sidebar-item">
-                <a href="/views/dashboard/user-report.html" class="sidebar-link">
-                    <div class="link-items">
-                        <i class="fa-solid fa-circle-exclamation"></i>
-                        <span class="sidebar-link-text">User Report</span>
-                    </div>
-                </a>
-            </li>
-            
+            <x-siderbar-item link="{{ route('home') }}" name="Dashboard" class="fa-home"></x-siderbar-item>
+            <x-siderbar-item link="{{ route('article.create') }}" name="Create Post" class="fa-file-circle-plus"></x-siderbar-item>
+            <x-siderbar-item link="" name="Create Category" class="fa-list-ul"></x-siderbar-item>
+            <x-siderbar-item link="" name="Comments" class="fa-comments"></x-siderbar-item>
+            <x-siderbar-item link="" name="New User Request" class="fa-user-plus"></x-siderbar-item>
+            <x-siderbar-item link="" name="All Users" class="fa-users"></x-siderbar-item>
+            <x-siderbar-item link="" name="User Report" class="fa-circle-exclamation"></x-siderbar-item>    
         </ul>
     <div class="sidenav-footer">
         <ul class="sidebar-nav p-0">
