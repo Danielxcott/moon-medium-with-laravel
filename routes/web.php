@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -35,4 +36,5 @@ Route::prefix("dashboard")->group(function(){
     Route::post("/article-category/delete",[CategoryController::class,"destroy"])->name("delete.category");
     Route::get("/article-category/{category:slug}/edit",[CategoryController::class,"edit"])->name("edit.category");
     Route::put("/article-category/{category:slug}/update",[CategoryController::class,"update"])->name("update.category");
+    Route::get("/profile",[UserController::class,"index"])->name("index.profile");
 });

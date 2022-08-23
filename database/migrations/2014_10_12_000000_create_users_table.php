@@ -26,6 +26,7 @@ return new class extends Migration
             $table->text("bio")->nullable();
             $table->string("profile")->nullable();
             $table->string("avatar")->nullable();
+            $table->string("cover_img")->nullable();
             $table->string("provider_id")->nullable();
             $table->text("livein")->nullable();
             $table->string("phone")->nullable();

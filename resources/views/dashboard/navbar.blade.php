@@ -1,4 +1,5 @@
 @php
+use App\base;
 use Illuminate\Support\Facades\Auth;
 @endphp
 
@@ -32,7 +33,7 @@ use Illuminate\Support\Facades\Auth;
                 <div class="profile">
                     <div class="profile-name">
                         <p class="mb-0">{{ ucwords(Auth::user()->name)}}</p>
-                        <span class="text-black-50">Admin</span>
+                        <span class="text-black-50">{{ base::$roles[Auth::user()->role] }}</span>
                     </div>
                     <img src="{{ asset("img/user/Teamwork-1.png") }}" class="user-profile" alt="">
                 </div>
@@ -43,7 +44,7 @@ use Illuminate\Support\Facades\Auth;
             <div class="profile-dropbox">
                 <ul class="dropbox-list p-0">
                     <li class="drop-list-item">
-                        <a href="views/dashboard/profile.html">
+                        <a href="{{ route("index.profile") }}">
                             <i class="fas fa-user"></i>
                             <span class="ms-3">Profile</span>
                         </a>

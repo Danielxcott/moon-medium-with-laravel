@@ -416,6 +416,14 @@ z-index: 1;
 .category-header{
     padding: 2rem;
 }
+  .category-table{
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .category-table::-webkit-scrollbar{
+    display: none;
+  }
 tr th{
   text-align: center;
 }
