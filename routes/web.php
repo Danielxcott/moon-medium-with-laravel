@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -24,4 +25,9 @@ Auth::routes();
 Route::prefix("dashboard")->group(function(){
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource("/article",ArticleController::class);
+    Route::resource("/article-category",CategoryController::class);
+    Route::post("/article-category/add",[CategoryController::class,"store"])->name("store.category");
+    Route::post("/article-category/delete",[CategoryController::class,"destroy"])->name("delete.category");
+    Route::get("/article-category/{category:slug}/edit",[CategoryController::class,"edit"])->name("edit.category");
+    Route::put("/article-category/{category:slug}/update",[CategoryController::class,"update"])->name("update.category");
 });
