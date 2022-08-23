@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreArticleRequest extends FormRequest
@@ -30,6 +31,7 @@ class StoreArticleRequest extends FormRequest
             "excerpt" => "required|string|min:3",
             "thumbnail" => "mimes:png,jpg",
             "images.*" => "mimes:png,jpg",
+            "category" => "required|exists:categories,id",
         ]; 
     }
 }

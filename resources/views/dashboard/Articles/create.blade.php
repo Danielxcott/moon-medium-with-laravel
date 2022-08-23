@@ -25,7 +25,7 @@
                       <x-form.form-item for="thumbnail" label="Thumbnail" type="file" title="thumbnail" />
                       <div class="post-create-item">
                         <label for="image">Image</label>
-                        <input type="file" class="form-control @error("images.*")
+                        <input type="file" multiple class="form-control @error("images.*")
                             is-invalid
                         @enderror " name="images[]" id="image">
                         @error("images.*")
@@ -34,13 +34,7 @@
                             </div>
                         @enderror
                       </div>
-                      <div class="post-create-item">
-                        <label for="">Category</label>
-                        <select name="category_id" class="form-control form-select" id="">
-                            <option value="" selected disabled>Select the category</option>
-                            <option value="0">Mobile</option>
-                        </select>
-                      </div>
+                      <x-form.form-category for="category" title="category" label="Category" :categories="$categories" />
                       <div class="post-create-item post-create-submit">
                         <button class="upload-btn" type="submit">Upload</button>
                       </div>
@@ -55,6 +49,17 @@
 <script src="{{ asset("js/sidebar.js") }}"></script>
 <script>
     $('#description').summernote({
+        toolbar: [
+            ['style', ['style']],
+            ['fontsize', ['fontsize']],
+            ['insert', ['picture','video','link', 'hr']],
+            ['font', ['bold', 'italic', 'underline', 'clear']],
+            ['fontname', ['fontname']],
+            ['color', ['color']],
+            ['height', ['height']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']]
+            ]
     });
   </script>
 @endpush
