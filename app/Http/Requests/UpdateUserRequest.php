@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateUserRequest extends FormRequest
@@ -25,7 +26,10 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             "name" => "required|min:3|max:20",
-            "gender" => "required|exists:users,gender",
+            "gender" => [
+                'required',
+                 Rule::in(['0', '1','2']),
+             ],
             "bio" => "max:255",
             "profile" => "mimes:png,jpg",
             "cover_img"=> "mimes:png,jpg,gif",

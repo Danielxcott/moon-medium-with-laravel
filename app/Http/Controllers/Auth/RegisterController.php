@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\base;
 use App\Models\User;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
@@ -65,8 +66,9 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $removespace = base::removeSpace($data['username']);
         return User::create([
-            'username' => $data['username'],
+            'username' => $removespace,
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
