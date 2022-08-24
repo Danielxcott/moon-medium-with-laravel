@@ -30,9 +30,9 @@
                             @endif
                             <div class="article-owner-name">
                                 @if ($article->author->name == null)
-                                <p><a href="">{{ ucwords($article->author->username) }}</a></p>
+                                <p><a href="{{ route("detail.user",$article->author->username) }}">{{ ucwords($article->author->username) }}</a></p>
                                 @else
-                                <p><a href="">{{ ucwords($article->author->name) }}</a></p>
+                                <p><a href="{{ route("detail.user",$article->author->username) }}">{{ ucwords($article->author->name) }}</a></p>
                                 @endif
                                 <small class="article-category"><a href="">{{ $article->category->name }}</a></small>
                                 <small class="article-created">{{ $article->created_at->diffForHumans() }}</small>

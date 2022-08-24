@@ -50,8 +50,11 @@ use Illuminate\Support\Facades\Auth;
                 @endif
                 </div>
             <div class="active-status">
+                @if (Auth::user()->isOnline())
                 <div class="online"></div>
-                <!-- <div class="offline"></div> -->
+                @else
+                <div class="offline"></div>
+                @endif
             </div>
             <div class="profile-dropbox">
                 <ul class="dropbox-list p-0">

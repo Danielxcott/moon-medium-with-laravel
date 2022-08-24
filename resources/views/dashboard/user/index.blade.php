@@ -27,6 +27,7 @@
                             <th>Username</th>
                             <th>Email</th>
                             <th>Role</th>
+                            <th>Active status</th>
                             <th>Action</th>
                             <th>Created At</th>
                             <th>Updated At</th>
@@ -46,6 +47,13 @@
                             <td>{{ base::removeSpace($user->username) }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ base::$roles[$user->role] }}</td>
+                            <td>
+                                @if ($user->isOnline())
+                                Online
+                                @else
+                                Offline
+                                @endif
+                            </td>
                             <td>
                                 <a href="{{ route("detail.user",$user->username) }}" class="btn btn-outline-primary user-key-btn"><i class="fa-solid fa-clipboard-list"></i></a>
                                 @if ($user->isBanned == "0")

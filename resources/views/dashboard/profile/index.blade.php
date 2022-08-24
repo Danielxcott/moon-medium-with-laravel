@@ -180,8 +180,11 @@
                                     @endif
                                 </small>
                                </a>
+                               @if ($user->isOnline())
                                <div class="active-status"></div>
-                               <div class="offline-status d-none"></div>
+                               @else
+                               <div class="offline-status"></div>
+                               @endif
                             </div>
                             <div class="btn-group">
                                 <button class="btn" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
