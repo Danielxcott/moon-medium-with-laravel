@@ -14,7 +14,7 @@
             <x-siderbar-item link="" name="Comments" class="fa-comments"></x-siderbar-item>
             <x-siderbar-item link="" name="New User Request" class="fa-user-plus"></x-siderbar-item>
             <x-siderbar-item link="{{ route('index.user') }}" name="All Users" class="fa-users"></x-siderbar-item>
-            <x-siderbar-item link="" name="User Report" class="fa-circle-exclamation"></x-siderbar-item>    
+            <x-siderbar-item link="{{ route('index.report') }}" name="User Report" class="fa-circle-exclamation"></x-siderbar-item>    
         </ul>
     <div class="sidenav-footer">
         <ul class="sidebar-nav p-0">

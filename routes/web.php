@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\ReportArticleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserManagementController;
 use Illuminate\Support\Facades\Auth;
@@ -44,4 +45,8 @@ Route::prefix("dashboard")->group(function(){
     Route::post("/user/ban-user",[UserManagementController::class,"banUser"])->name("ban.user");
     Route::post("/user/change-password",[UserManagementController::class,"changePassword"])->name("changePassword.user");
     Route::get("/user/{user::username}/detail",[UserManagementController::class,"show"])->name("detail.user");
+    Route::get("/report-article/{artilce:slug}",[ReportArticleController::class,"store"])->name("set.report");
+    Route::get("/report-article/{reportarticle:id}/{article:slug}/update",[ReportArticleController::class,"update"])->name("update.report");
+    Route::get("/report",[ReportArticleController::class,"index"])->name("index.report");
+    Route::post("/report/remove",[ReportArticleController::class,"destroy"])->name("delete.report");
 });

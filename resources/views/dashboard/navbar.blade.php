@@ -27,7 +27,9 @@ use Illuminate\Support\Facades\Auth;
             <div class="noti-bell">
                 <i class="fas fa-bell"></i>
             </div>
-            <div class="noti-status"></div>
+            @if ($reportActive > 0)
+            <div class="noti-status"></div> 
+            @endif
         </div>
         <div class="profile-group" id="dropbox-btn">
                 <div class="profile">

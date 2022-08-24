@@ -56,9 +56,11 @@
                                     Report
                                 </button>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Spam</a></li>
-                                      <li><a class="dropdown-item" href="#">Harassment</a></li>
-                                      <li><a class="dropdown-item" href="">False Information</a></li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route("set.report",[$article->slug,"message"=>"0","id"=>Auth::id()]) }}">Spam</a>
+                                        </li>
+                                      <li><a class="dropdown-item" href="{{ route("set.report",[$article->slug,"message"=>"1","id"=>Auth::id()]) }}">Harassment</a></li>
+                                      <li><a class="dropdown-item" href="{{ route("set.report",[$article->slug,"message"=>"2","id"=>Auth::id()]) }}">False Information</a></li>
                                     </ul>
                                   </div>
                                 </li>

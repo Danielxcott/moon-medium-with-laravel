@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Photo;
 use App\Models\Article;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
+use App\Models\ReportArticle;
 
 class ArticleController extends Controller
 {
@@ -91,7 +93,6 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        // $article = Article::where("slug",$slug)->first();
         return view("dashboard.Articles.show",compact("article"));
     }
 
