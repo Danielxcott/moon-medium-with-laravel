@@ -33,7 +33,7 @@ use Illuminate\Support\Facades\Auth;
                 <div class="profile">
                     <div class="profile-name">
                         @if (Auth::user()->name == null)
-                            <p class="mb-0">{{ ucwords(Auth::user()->username)}}</p>
+                            <p class="mb-0">{{ base::removeSpace(Auth::user()->username)}}</p>
                            @else
                            <p class="mb-0">{{ ucwords(Auth::user()->name)}}</p> 
                         @endif

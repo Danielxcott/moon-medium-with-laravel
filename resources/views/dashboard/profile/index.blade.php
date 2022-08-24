@@ -34,11 +34,11 @@
         <div class="profile-name-group">
             <div class="profile-name">
             @if ($user->name == null)
-            <h4>{{ ucwords($user->username)}}</h4>
+            <h4>{{ base::removeSpace($user->username) }}</h4>
             @else
             <h4>{{ ucwords($user->name)}}</h4>
             @endif
-            <small>{{ "@".$user->username }}</small>
+            <small>{{ "@".base::removeSpace($user->username) }}</small>
         </div>
             <div class="profile-follower-item">
                 @if (Auth::id() !== $user->id)
@@ -94,7 +94,7 @@
                         <div>
                             <label>Username</label>
                             @isset($user->username)
-                            <h3>{{ "@".$user->username }}</h3>
+                            <h3>{{ "@".base::removeSpace($user->username) }}</h3>
                             @endisset
                         </div>
                     </div>

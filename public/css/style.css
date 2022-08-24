@@ -1491,7 +1491,7 @@ padding-left: 1.3rem;
   padding: 0 1.3rem;
 }
 .profile-name-group .profile-name {
-  flex: 1 0 12rem;
+  flex: 1 0 32rem;
 }
 .profile-name-group .profile-name 
 .profile-edit-item{
@@ -1538,6 +1538,9 @@ padding-left: 1.3rem;
   background-color: #002595;
   border-radius: 0.8rem;
   font-weight: 500;
+}
+.profile-follower-item button a:hover{
+  color: var(--light-color);
 }
 .profile-follower-item button:last-child {
   background-color: #383838;
@@ -1837,7 +1840,7 @@ padding-left: 1.3rem;
   }
   .profile-name-group .profile-name{
     flex: none;
-    padding: 1.2rem 0.8rem;
+    padding: 3.2rem 0.8rem;
   }
   .profile-follower-item{
     flex: none;

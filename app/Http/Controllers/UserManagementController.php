@@ -49,4 +49,10 @@ class UserManagementController extends Controller
             return response()->json(["status"=>422,"message"=>"You can't change admin password!!"]);
         }
     }
+
+    public function show($username)
+    {
+       $user = User::where("username",$username)->first();
+       return view("dashboard.profile.index",compact("user"));
+    }
 }

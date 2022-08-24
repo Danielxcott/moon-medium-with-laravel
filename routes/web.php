@@ -43,4 +43,5 @@ Route::prefix("dashboard")->group(function(){
     Route::get("/users",[UserManagementController::class,"index"])->name("index.user");
     Route::post("/user/ban-user",[UserManagementController::class,"banUser"])->name("ban.user");
     Route::post("/user/change-password",[UserManagementController::class,"changePassword"])->name("changePassword.user");
+    Route::get("/user/{user::username}/detail",[UserManagementController::class,"show"])->name("detail.user");
 });

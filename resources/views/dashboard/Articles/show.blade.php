@@ -43,7 +43,7 @@
                                 <i class="fas fa-ellipsis-vertical"></i>
                             </button>
                             <ul class="dropdown-menu">
-                              <li><a class="dropdown-item" href="">Profile</a></li>
+                              <li><a class="dropdown-item" href="{{ route("detail.user",$article->author->username) }}">Profile</a></li>
                               <li><a class="dropdown-item" href="{{ route("edit.article",$article->slug) }}">Edit</a></li>
                               <li><form action="{{ route("article.destroy",$article->id) }}" method="post">
                                 @csrf

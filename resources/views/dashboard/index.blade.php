@@ -108,42 +108,29 @@
     </div>
 </section>
 <section class="box-content">
+@if ($users->count() >= 7)
 <div class="new-user-card">
-        <div class="user-title">
-        <h4 class="mb-0">All Users</h4>
-        <a href="">See all</a>
+    <div class="user-title">
+    <h4 class="mb-0">All Users</h4>
+    <a href="">See all</a>
+    </div>
+    <div class="new-user-body">
+        <div class="user-profile-left">
+            @foreach ($users as $user)
+            <a href="{{ route("detail.user",$user->username) }}">
+            @if ($user->profile == "" && $user->avatar == "")
+                <img src="{{ asset("img/default/user.png") }}" alt="">
+            @elseif($user->profile =="" && $user->avatar !== "")
+                <img src="{{ $user->avatar }}" alt="">
+            @else
+                <img src="{{ asset("storage/profile/".$user->profile) }}" class="viewer1" alt="">
+            @endif
+            </a>
+            @endforeach
         </div>
-        <div class="new-user-body">
-            <div class="user-profile-left">
-                <a href="">
-                    <img src="{{ asset("img/user/Teamwork-2.png") }}" class="viewer1" alt=""> 
-                </a><a href="">
-                    <img src="{{ asset("img/user/Teamwork-8.png") }}" class="viewer1" alt=""> 
-                </a>
-                <a href="">
-                    <img src="{{ asset("img/user/Teamwork-4.png") }}" class="viewer1" alt="">  
-                </a>
-                <a href="">
-                    <img src="{{ asset("img/user/Teamwork-5.png") }}" class="viewer1" alt="">  
-                </a>
-                <a href="">
-                    <img src="{{ asset("img/user/Teamwork-8.png") }}" class="viewer1" alt="">  
-                </a>
-                <a href="">
-                    <img src="{{ asset("img/user/Teamwork-1.png") }}" class="viewer1" alt=""> 
-                </a>
-                <a href="">
-                    <img src="{{ asset("img/user/Teamwork-2.png") }}" class="viewer1" alt=""> 
-                </a>
-                <a href="">
-                    <img src="{{ asset("img/user/Teamwork-3.png") }}" class="viewer1" alt=""> 
-                </a>
-                <a href="">
-                    <img src="{{ asset("img/user/Teamwork-7.png") }}" class="viewer1" alt=""> 
-                </a>
-            </div>
-        </div>
+    </div>
 </div>
+@endif
 </section>
 @endsection
 @push("script")

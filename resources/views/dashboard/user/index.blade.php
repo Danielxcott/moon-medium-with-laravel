@@ -43,11 +43,11 @@
                               @else
                               <td><img class="user_profile_img" src="{{ asset("storage/profile/".$user->profile )}}" alt=""></td>
                             @endif
-                            <td>{{ ucwords($user->username) }}</td>
+                            <td>{{ base::removeSpace($user->username) }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ base::$roles[$user->role] }}</td>
                             <td>
-                                <a href="" class="btn btn-outline-primary user-action-btn d-none">User</a>
+                                <a href="{{ route("detail.user",$user->username) }}" class="btn btn-outline-primary user-key-btn"><i class="fa-solid fa-clipboard-list"></i></a>
                                 @if ($user->isBanned == "0")
                                 <form action="{{ route("ban.user") }}" method="post" class="d-inline-block" id="banform{{ $user->id }}">
                                     @csrf
