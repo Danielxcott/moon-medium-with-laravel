@@ -32,10 +32,20 @@ use Illuminate\Support\Facades\Auth;
         <div class="profile-group" id="dropbox-btn">
                 <div class="profile">
                     <div class="profile-name">
-                        <p class="mb-0">{{ ucwords(Auth::user()->name)}}</p>
+                        @if (Auth::user()->name == null)
+                            <p class="mb-0">{{ ucwords(Auth::user()->username)}}</p>
+                           @else
+                           <p class="mb-0">{{ ucwords(Auth::user()->name)}}</p> 
+                        @endif
                         <span class="text-black-50">{{ base::$roles[Auth::user()->role] }}</span>
                     </div>
-                    <img src="{{ asset("img/user/Teamwork-1.png") }}" class="user-profile" alt="">
+                @if (Auth::user()->profile == "" && Auth::user()->avatar == "")
+                <img src="{{ asset("img/default/user.png") }}" class="user-profile" alt="">
+                @elseif(Auth::user()->profile =="" && Auth::user()->avatar !== "")
+                <img src="{{ Auth::user()->avatar }}" class="user-profile" alt="">
+                @else
+                <img src="{{ asset("storage/profile/".Auth::user()->profile) }}" class="user-profile" alt="">
+                @endif
                 </div>
             <div class="active-status">
                 <div class="online"></div>

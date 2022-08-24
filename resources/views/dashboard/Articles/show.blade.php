@@ -21,9 +21,19 @@
                 <div class="article-wrapper">
                     <div class="article-owner">
                         <div class="article-owner-item">
-                           <img src="/assets/img/user/Teamwork-4.png" alt="">
+                            @if ($article->author->profile == "" && $article->author->avatar  == "")
+                            <img src="{{ asset("img/default/user.png") }}" alt="">
+                            @elseif($article->author->profile  =="" && $article->author->avatar  !== "")
+                            <img src="{{ $user->avatar }}" alt="">
+                            @else
+                            <img src="{{ asset("storage/profile/".$article->author->profile) }}" alt="">
+                            @endif
                             <div class="article-owner-name">
-                                <p><a href="">{{ $article->author->name }}</a></p>
+                                @if ($article->author->name == null)
+                                <p><a href="">{{ ucwords($article->author->username) }}</a></p>
+                                @else
+                                <p><a href="">{{ ucwords($article->author->name) }}</a></p>
+                                @endif
                                 <small class="article-category"><a href="">{{ $article->category->name }}</a></small>
                                 <small class="article-created">{{ $article->created_at->diffForHumans() }}</small>
                             </div>

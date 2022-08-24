@@ -74,20 +74,20 @@
         <div class="form-container signup-form-container">
             <form action="{{ route("register") }}" method="POST">
                 @csrf
-                <div class="input-container @error("name")
+                <div class="input-container @error("username")
                     is-invalid
                 @enderror">
-                    <label for="name" class="placeholder email  @error("name")
+                    <label for="username" class="placeholder email  @error("usernamename")
                     is-invalid
-                @enderror">Name</label>
-                    <input type="text" value="{{ old("name") }}" name="name" id="name" class="input-name login-input" autocomplete="off">
-                    <svg class="line-svg  @error("name")
+                @enderror">Username</label>
+                    <input type="text" value="{{ old("username") }}" name="username" id="username" class="input-name login-input" autocomplete="off">
+                    <svg class="line-svg  @error("username")
                     is-invalid
                 @enderror" width="300" height="2" viewBox="0 0 300 2" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path class="elastic-line" d="M0 0.999512C0 0.999512 60.5 0.999512 150 0.999512C239.5 0.999512 300 0.999512 300 0.999512" stroke="#D1D4DA" stroke-width="2"/>
                     </svg>
                 </div>
-                @error('name')
+                @error('username')
                 <div class="error is-invalid">
                     <small>{{ $message }}</small>
                 </div>

@@ -80,7 +80,7 @@ class ArticleController extends Controller
                 $photos->save();
             }
         }
-        return back();
+        return redirect()->route("article.index");
     }
 
     /**

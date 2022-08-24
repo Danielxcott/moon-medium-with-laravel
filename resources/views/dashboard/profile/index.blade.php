@@ -10,7 +10,11 @@
 @section("content")
 <section class="profile-card">
     <div class="profile-cover">
-        <img src="{{ asset("img/posts/f68acc1ec6b3067888ad0f6c52ef275d.jpeg") }}" alt="">
+        @if ($user->cover_img == "")
+            <img src="{{ asset("img/default/defaultcover.png") }}" alt="">
+            @else
+            <img src="{{ asset("storage/cover/".$user->cover_img) }}" alt="">
+            @endif
         <div class="back-btn">
            <a href="{{ route("home") }}">
             <i class="fa-solid fa-chevron-left"></i>
@@ -19,22 +23,28 @@
     </div>
     <div class="profile-head">
         <div class="profile-pic">
-            <img src="../../assets/img/user/Upstream-1.png" alt="">
+            @if ($user->profile == "" && $user->avatar == "")
+                <img src="{{ asset("img/default/user.png") }}" alt="">
+                @elseif($user->profile =="" && $user->avatar !== "")
+                <img src="{{ $user->avatar }}" alt="">
+                @else
+                <img src="{{ asset("storage/profile/".$user->profile) }}" alt="">
+                @endif
         </div>
         <div class="profile-name-group">
             <div class="profile-name">
-            <h4>{{ ucwords($user->name)}}</h4>
-            @if ($user->username == null)
-            <small>{{ "@".$user->name.rand(0,9999) }}</small>
+            @if ($user->name == null)
+            <h4>{{ ucwords($user->username)}}</h4>
             @else
-            <small>{{ "@".$user->username }}</small>
+            <h4>{{ ucwords($user->name)}}</h4>
             @endif
+            <small>{{ "@".$user->username }}</small>
         </div>
             <div class="profile-follower-item">
                 @if (Auth::id() !== $user->id)
                 <button class="follow-btn "><a href="">Follow</a></button>
                 @endif
-                <button class="edit-btn "><a href="/views/dashboard/edit-profile.html">Edit Profile</a></button>
+                <button class="edit-btn "><a href="{{ route("edit.profile",$user->username) }}">Edit Profile</a></button>
             </div>
         </div>
     </div>
@@ -94,7 +104,9 @@
                         </div>
                         <div>
                             <label>Name</label>
+                            @isset($user->name)
                             <h3>{{ ucwords($user->name) }}</h3>
+                            @endisset
                         </div>
                     </div>
                 </div>
@@ -153,9 +165,19 @@
                         <div class="content-user-group">
                             <div class="user-profile">
                                <a href="">
-                                <img src="/assets/img/user/Upstream-1.png" class="user-img" alt="">
+                                @if ($article->author->profile == "" && $article->author->avatar  == "")
+                                <img src="{{ asset("img/default/user.png") }}" class="user-img" alt="">
+                                @elseif($article->author->profile  =="" && $article->author->avatar  !== "")
+                                <img src="{{ $user->avatar }}" class="user-img" alt="">
+                                @else
+                                <img src="{{ asset("storage/profile/".$article->author->profile) }}" class="user-img" alt="">
+                                @endif
                                 <small class="user-name">
+                                    @if ($article->author->name == null)
+                                    {{ ucwords($article->author->username) }}
+                                    @else
                                     {{ $article->author->name }}
+                                    @endif
                                 </small>
                                </a>
                                <div class="active-status"></div>

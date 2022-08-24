@@ -4,7 +4,7 @@
 <section class="content">
     <div class="quote-container">
         <div class="quote-text">
-            <h4 class="text-header">Hello Lucien</h4>
+            <h4 class="text-header">Hello {{ ucwords(Auth::user()->name) }}</h4>
             <p class="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus obcaecati quos, quidem dignissimos perspiciatis dolor aut. Eaque voluptates nostrum nesciunt.</p>
         </div>
         <img src="{{ asset("img/svg/work1.svg") }}" class="user-illustrator" alt="">

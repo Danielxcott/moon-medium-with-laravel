@@ -37,4 +37,6 @@ Route::prefix("dashboard")->group(function(){
     Route::get("/article-category/{category:slug}/edit",[CategoryController::class,"edit"])->name("edit.category");
     Route::put("/article-category/{category:slug}/update",[CategoryController::class,"update"])->name("update.category");
     Route::get("/profile",[UserController::class,"index"])->name("index.profile");
+    Route::get("/profile/{user:username}/edit",[UserController::class,"edit"])->name("edit.profile");
+    Route::put("/profile/{user:username}/update",[UserController::class,"update"])->name("update.profile");
 });
