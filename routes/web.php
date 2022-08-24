@@ -4,6 +4,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserManagementController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +26,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::prefix("dashboard")->group(function(){
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource("/article",ArticleController::class);
     Route::resource("/article-category",CategoryController::class);
     Route::get("/article/{article:slug}/detail",[ArticleController::class,"show"])->name("detail.article");
@@ -39,4 +40,7 @@ Route::prefix("dashboard")->group(function(){
     Route::get("/profile",[UserController::class,"index"])->name("index.profile");
     Route::get("/profile/{user:username}/edit",[UserController::class,"edit"])->name("edit.profile");
     Route::put("/profile/{user:username}/update",[UserController::class,"update"])->name("update.profile");
+    Route::get("/users",[UserManagementController::class,"index"])->name("index.user");
+    Route::post("/user/ban-user",[UserManagementController::class,"banUser"])->name("ban.user");
+    Route::post("/user/change-password",[UserManagementController::class,"changePassword"])->name("changePassword.user");
 });

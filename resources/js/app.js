@@ -1,4 +1,5 @@
 import * as bootstrap from 'bootstrap';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 import "../../node_modules/jquery/dist/jquery";
 import "../../node_modules/slick-carousel/slick/slick";
 import "../../node_modules/owl.carousel/dist/owl.carousel";
@@ -71,3 +72,48 @@ $('.user-profile-left').slick({
     accessibility: false,
     useTransform: false,
   }); 
+
+  window.banConfirmRole = function(id){
+    Swal.fire({
+        title: 'Are you sure to ban this user?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Confirm'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(
+            'Banned!',
+            "Current user's has been banned.",
+            'success'
+          )
+          setTimeout(function(){
+            $("#banform"+id).submit();
+          },1200)
+        }
+      })
+  }
+
+window.unBanConfirmRole = function(id)
+{
+    Swal.fire({
+        title: 'Are you sure to unban this user?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Confirm'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(
+            'Unbanned!',
+            "Current user's has been unbanned.",
+            'success'
+          )
+          setTimeout(function(){
+            $("#unbanform"+id).submit();
+          },1200)
+        }
+      })
+}
