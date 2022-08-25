@@ -1,5 +1,6 @@
 @php
    use App\Models\Article;
+   use App\base;
 @endphp
 @extends("layouts.app")
 @section("title") Article Detail @stop
@@ -114,7 +115,7 @@
                                 </div>
                                 <div class="comment" id="commentBtn1" onclick="commentBtn(1)">
                                     <i class="bi bi-chat-right-quote-fill"></i>   
-                                    <span class="message-count">5</span>                     
+                                    <span class="message-count">{{ $article->comments->count() }}</span>                     
                                 </div>
                             </div>
                             @php
@@ -141,6 +142,28 @@
 </section>
 @endsection
 <x-reaction-viewer :article="$article" />
+<x-comment-section :article="$article"/>
 @push("script")
     <script src="{{ asset("js/sidebar.js") }}"></script>
+    <script>
+        let url = "{{ route('store.comment') }}";
+        $(".comment-card .comment-box").delegate(".response-btn","click",function(){
+            let message = $(this).closest(".comment-box").find("#message-box").val();
+            let userId = $(this).closest(".comment-box").find(".user-id").val();
+            let articleId = $(this).closest(".comment-box").find(".article-id").val();
+            let articleOwnerId = $(this).closest(".comment-box").find(".article-owner-id").val();
+            $.post(url,{
+                message : message,
+                user_id : userId,
+                article_id : articleId,
+                article_owner_id : articleOwnerId,
+                _token : "{{ csrf_token() }}",
+            }).done(function(data){
+                console.log(data);
+                $(".comment-card .comment-box").load(location.href+" .comment-card .comment-box");
+                $(".comment-lists").load(location.href+" .comment-lists");
+                loadmessageCount(articleId);
+            });
+        })
+    </script>
 @endpush

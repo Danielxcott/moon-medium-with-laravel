@@ -1,6 +1,8 @@
 @php
 use App\base;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Comment;
+$commentActive = Comment::where("article_owner_id",Auth::id())->where("status","0")->count();
 @endphp
 
 <div class="nav">
@@ -27,7 +29,7 @@ use Illuminate\Support\Facades\Auth;
             <div class="noti-bell">
                 <i class="fas fa-bell"></i>
             </div>
-            @if ($reportActive > 0)
+            @if ($reportActive > 0 || $commentActive > 0)
             <div class="noti-status"></div> 
             @endif
         </div>

@@ -1,5 +1,7 @@
 @php
     use Illuminate\Support\Str;
+    use App\Models\Comment;
+   $comments = Comment::where("article_owner_id",Auth::id())->where("status","0")->get();
 @endphp
 <nav class="noti-nav">
     <div class="noti-close"></div>
@@ -7,6 +9,9 @@
         <li class="nav-item" role="presentation">
           <button class="nav-link active report-btn" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Report</button>
         </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link report-btn" id="pills-comment-tab" data-bs-toggle="pill" data-bs-target="#pills-comment" type="button" role="tab" aria-controls="pills-comment" aria-selected="true">Comment</button>
+          </li>
         <li class="nav-item" role="presentation">
           <button class="nav-link report-btn" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Request</button>
         </li>
@@ -42,6 +47,44 @@
                 @if ($reports->count() == "0")
                 <li>
                     <h3 class="mb-0 text-center">No reports currently.</h3>
+                 </li>  
+                @endif
+            </ul>
+        </div>
+        <div class="tab-pane fade show " id="pills-comment" role="tabpanel" aria-labelledby="pills-comment-tab" tabindex="0">
+            <ul class="noti-list">
+                @foreach ( $comments as $comment )
+                @if ($comment->status == "0")
+                <li class="noti-wrapper">
+                    <a href="{{ route("update.comment",[$comment->article->slug,$comment->id]) }}" class="noti-link">
+                        <div class="noti-item">
+                            @if ($comment->user->profile == "" && $comment->user->avatar == "")
+                            <img src="{{ asset("img/default/user.png") }}" alt="">
+                            @elseif($comment->user->profile =="" && $comment->user->avatar !== "")
+                            <img src="{{ $report->user->avatar }}" alt="">
+                            @else
+                            <img src="{{ asset("storage/profile/".$comment->user->profile) }}" alt="">
+                            @endif
+                            <div class="noti-title">
+                                @if ($comment->user->name == null)
+                                <h3>{{ $comment->user->username }}</h3>
+                                @else
+                                <h3>{{ $comment->user->name }}</h3>
+                                @endif
+                                <p>{{ Str::words( $comment->message , 10) }}</p>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                @else
+                <li>
+                    <h3 class="mb-0 text-center">No comments currently.</h3>
+                 </li> 
+                @endif
+                @endforeach
+                @if ($comments->count() == "0")
+                <li>
+                    <h3 class="mb-0 text-center">No comments currently.</h3>
                  </li>  
                 @endif
             </ul>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\ReportArticleController;
 use App\Http\Controllers\UserController;
@@ -50,5 +51,9 @@ Route::prefix("dashboard")->group(function(){
     Route::get("/report-article/{reportarticle:id}/{article:slug}/update",[ReportArticleController::class,"update"])->name("update.report");
     Route::get("/report",[ReportArticleController::class,"index"])->name("index.report");
     Route::post("/report/remove",[ReportArticleController::class,"destroy"])->name("delete.report");
-    
+    Route::post("/comment/article",[CommentController::class,"store"])->name("store.comment");
+    Route::post("/load-message-count",[CommentController::class,"loadmessageCount"])->name("countMessage.comment");
+    Route::get("/comments",[CommentController::class,"index"])->name("index.comment");
+    Route::get("/comment/{artilce:slug}/{comment:id}/update",[CommentController::class,"update"])->name("update.comment");
+    Route::post("/comment/remove",[CommentController::class,"destroy"])->name("delete.comment");
 });

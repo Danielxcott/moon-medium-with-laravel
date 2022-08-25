@@ -117,3 +117,23 @@ window.unBanConfirmRole = function(id)
         }
       })
 }
+
+window.loadmessageCount = function(articleId)
+{
+  $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+  $.ajax({
+    method: "POST",
+    url: "/dashboard/load-message-count",
+    data:{
+      "id": articleId,
+    },
+    success: function(response)
+    {
+      $(".message-count").html(response.count);
+    }
+  })
+}

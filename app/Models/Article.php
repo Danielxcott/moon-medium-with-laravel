@@ -34,4 +34,8 @@ class Article extends Model
     {
         return $this->reactors()->attach(Auth::id());
     }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
