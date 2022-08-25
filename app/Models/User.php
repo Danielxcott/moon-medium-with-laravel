@@ -58,4 +58,14 @@ class User extends Authenticatable
     {
         return Cache::has("user-is-online-" . $this->id);
     }
+
+    public function reactedArticle()
+    {
+        return $this->belongsToMany(Article::class);
+    }
+
+    public function isReacted($article)
+    {
+        return Auth::user()->reactedArticle && Auth::user()->reactedArticle->contains("id",$article->id);
+    }
 }

@@ -33,6 +33,7 @@ Route::prefix("dashboard")->group(function(){
     Route::get("/article/{article:slug}/detail",[ArticleController::class,"show"])->name("detail.article");
     Route::get("/article/{article:slug}/edit",[ArticleController::class,"edit"])->name("edit.article");
     Route::put("/article/{article:slug}/update",[ArticleController::class,"update"])->name("update.article");
+    Route::post("/react/{article:slug}/article",[ArticleController::class,"articleReactor"])->name("react.article");
     Route::post("/article/delete-images",[PhotoController::class,"destroy"])->name("delete.article.images");
     Route::post("/article-category/add",[CategoryController::class,"store"])->name("store.category");
     Route::post("/article-category/delete",[CategoryController::class,"destroy"])->name("delete.category");
@@ -49,4 +50,5 @@ Route::prefix("dashboard")->group(function(){
     Route::get("/report-article/{reportarticle:id}/{article:slug}/update",[ReportArticleController::class,"update"])->name("update.report");
     Route::get("/report",[ReportArticleController::class,"index"])->name("index.report");
     Route::post("/report/remove",[ReportArticleController::class,"destroy"])->name("delete.report");
+    
 });

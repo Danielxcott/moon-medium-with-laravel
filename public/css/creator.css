@@ -199,16 +199,24 @@
   align-items: center;
   padding: 1.3rem 0;
 }
-.reaction-controller {
+.reaction-controller ,
+.reaction,
+.comment{
   display: flex;
+  align-items: center;
 }
 .reaction {
   flex: 1 0 7rem;
+}
+.reaction>form>button{
+  font-size: 1.8rem;
+  text-align: center;
 }
 .reaction a, .comment i{
   text-decoration: none;
   font-size: 1.8rem;
   cursor: pointer;
+  text-align: center;
 }
 .reaction a i, .comment i {
   color: var(--offline-color);

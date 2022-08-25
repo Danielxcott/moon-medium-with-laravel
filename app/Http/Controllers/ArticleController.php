@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Photo;
 use App\Models\Article;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\ReportArticle;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
-use App\Models\ReportArticle;
 
 class ArticleController extends Controller
 {
@@ -148,6 +149,20 @@ class ArticleController extends Controller
             }
         }
         return redirect()->route("article.index");
+    }
+
+    public function articleReactor(Article $article)
+    {
+
+        if(User::find(Auth::id())->isReacted($article))
+        {
+            $article->unReacted();
+        }else
+        {
+            $article->reacted();
+        }
+        return back();
+
     }
 
     /**

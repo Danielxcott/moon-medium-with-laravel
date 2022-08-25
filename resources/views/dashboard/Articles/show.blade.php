@@ -102,10 +102,15 @@
                         <div class="article-detail-controller">
                             <div class="reaction-controller">
                                 <div class="reaction">
-                                    <a href="">                            
-                                        <i class="bi bi-heart-fill"></i>
-                                    </a>
-                                        <span onclick="viewerBtn(1)" class="reaction-count">30</span>
+                                    <form action="{{ route("react.article",$article->slug) }}" method="POST" class="d-inline-block">
+                                        @csrf
+                                        @if (Auth::user()->isReacted($article))
+                                        <button class="btn border-0 react-btn" ><i class="bi bi-heart-fill text-danger"></i></button>
+                                        @else
+                                        <button class="btn border-0 react-btn"><i class="bi bi-heart-fill"></i></button>
+                                        @endif
+                                    </form>
+                                        <span onclick="viewerBtn(1)" class="reaction-count">{{ $article->reactors->count() }}</span>
                                 </div>
                                 <div class="comment" id="commentBtn1" onclick="commentBtn(1)">
                                     <i class="bi bi-chat-right-quote-fill"></i>   
@@ -135,3 +140,7 @@
     </div>
 </section>
 @endsection
+<x-reaction-viewer :article="$article" />
+@push("script")
+    <script src="{{ asset("js/sidebar.js") }}"></script>
+@endpush
