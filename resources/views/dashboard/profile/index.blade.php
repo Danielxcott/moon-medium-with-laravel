@@ -1,6 +1,10 @@
 @php
     use Illuminate\Support\Facades\Auth;
     use App\base;
+    use App\Models\UserRequest;
+    $allRequests = UserRequest::all();
+    // $specificUser = UserRequest::Where("friend_id",Auth::id())->where("user_id",$user->id)->where("status","0")->first();
+    // $confirm = UserRequest::Where("friend_id",Auth::id())->where("user_id",$user->id)->where("status","1")->first();
 @endphp
 @extends("layouts.app")
 @section("title") Profile @stop
@@ -41,8 +45,105 @@
             <small>{{ "@".base::removeSpace($user->username) }}</small>
         </div>
             <div class="profile-follower-item">
+                <input type="hidden" class="user_id" value="{{ $user->id }}">
+                <input type="hidden" class="current_id" value="{{ Auth::id() }}">
+                {{-- @if (Auth::id() !== $user->id)
+            @if ($user->isSent($user->id))
+                @if (Auth::user()->userRequest->status == "0"  && $user->userRequest->friend_id == $user->id )
+                    <button type="button" class="remove-btn ">Requested</button>
+                 @else
+                    <button type="button" class="remove-btn ">Follow</button>
+                @endif
+            @else
+                @if ($user->userRequest && $user->userRequest->user_id == Auth::id())
+                    @if ($user->userRequest->status == "0")
+                        <button type="button" class="remove-btn">Pending</button> 
+                    @elseif ($user->userRequest->status == "1")
+                        <button type="button" class="remove-btn">Followed</button> 
+                    @endif
+                @else 
+                    @if ($user->userRequest)
+                        @if ($user->userRequest->status == "0")
+                        <button type="button" class="follow-btn">Pending</button> 
+                        @endif
+                    @else
+                        <button type="button" class="follow-btn">Follow</button> 
+                    @endif
+                    @if ($user->userRequest)
+                    @if ($user->userRequest->status == "1")
+                    <button type="button" class="follow-btn">Pending</button> 
+                    @else
+                    @endif 
+                    @endif 
+            @endif 
+                @endif
+                @endif --}}
                 @if (Auth::id() !== $user->id)
-                <button class="follow-btn "><a href="">Follow</a></button>
+            @if ($user->isSent($user->id))
+            <!-- click p-->
+                @if (Auth::user()->userRequest)
+                    @foreach (Auth::user()->userRequests as $userRequest )
+                    <!--A person who start to follow will see this-->
+                    @if ($userRequest->friend_id == $user->id && $userRequest->status == "1" )
+                    <button type="button" class="remove-btn">Followed</button> 
+                    @elseif ($userRequest->friend_id == $user->id && $userRequest->status == "0")
+                    <button type="button" class="remove-btn">Pending</button> 
+                    @endif
+                    @endforeach
+                    @else
+                    <button type="button" class="follow-btn">Follow</button>  
+                @endif
+            @else
+            <!--ma click khin-->
+                {{-- @if ($user->userRequest)
+                    @foreach ($user->userRequests as $value )
+                    @if ($value->friend_id == Auth::id() && $value->user->id == $value->user_id )
+                            @if ($value->status == 0 && $value->friend_id == Auth::id() && $value->friend_id == Auth::id() && $value->user->id == $value->user_id)
+                            <button type="button" class="">Request</button>  
+                            @elseif ($value->status == "1" && $value->user_id == $user->id && $value->friend_id == Auth::id())
+                            <button type="button" class="remove-btn">Followed</button>  
+                            @endif                       
+                    @endif 
+                    @endforeach  
+                @endif   --}}
+                {{-- @foreach ($allRequests as $value ) 
+                        @if ($value->status == "0" && $value->friend_id == Auth::id() && $value->user_id == $user->id)
+                            <button>Request</button>
+                         @elseif (($value->user_id !== $user->id) == true )   
+                         @if ($value->user_id == Auth::id())
+
+                         @else
+                            @if ($value->friend_id == $user->id && $value->status == "0")
+                            @else
+                            @if($value->friend_id !== Auth::id() && $value->user_id !== $user->id)
+                            <button class="follow-btn">Follow</button> 
+                            @endif
+                            @endif   
+                         @endif
+                        @endif
+                @endforeach --}}
+                @if (base::specificUser($user))
+                   {{-- <Button class="remove-btn">Request</Button>  --}}
+                   <!--A person who get follower will see this-->
+                   <div class="dropdown d-inline-block pending-btn">
+                    <input type="hidden" value="{{ $user->id }}" class="currentReachId">
+                    <input type="hidden" value="{{ Auth::id() }}" class="ownerId">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      pending
+                    </button>
+                    <ul class="dropdown-menu">
+                    <li class="dropdown-item confirm-request" onclick="confirmRequest()">Confirm</li>
+                      <li class="dropdown-item remove-request" onclick="removeRequest()">Remove</li>
+                    </ul>
+                  </div>
+                 @else
+                @if (base::confirm($user))
+                    <Button class="remove-follow" onclick="removeFollow()">Followed</Button> 
+                  @else
+                  <button class="follow-btn">Follow</button>     
+                @endif
+                @endif
+                @endif
                 @endif
                 <button class="edit-btn "><a href="{{ route("edit.profile",$user->username) }}">Edit Profile</a></button>
             </div>
@@ -241,7 +342,7 @@
                         <div class="divider-line"></div>
                     </div>
                     @empty
-                    <img src="{{ asset("img/posts/alligator.jpeg") }}"  alt="">
+                    <img src="{{ asset("img/posts/alligator.jpeg") }}" class="w-100"  alt="">
                     <h3 class="text-center no-article">No articles are added at this point!</h3>
                     @endforelse
                 </div>
@@ -251,4 +352,34 @@
 @endsection
 @push("script")
     <script src="{{ asset("js/sidebar.js") }}"></script>
+    <script>
+        $(".profile-head").delegate(".follow-btn","click",function(){
+            let url = "{{ route('set.request') }}";
+            let currentId = $(this).closest(".profile-follower-item").find(".current_id").val();
+            let userId = $(this).closest(".profile-follower-item").find(".user_id").val();
+            $.post(url,{
+                friend_id : userId,
+                user_id : currentId,
+                _token : "{{ csrf_token() }}",
+            }).done(function(data){
+                $(".profile-head .profile-follower-item").load(location.href+" .profile-head .profile-follower-item");
+                console.log(data);
+            })
+        })
+        $(".profile-head").delegate(".remove-btn","click",function(){
+            let url = "{{ route('remove.request') }}";
+            let currentId = $(this).closest(".profile-follower-item").find(".current_id").val();
+            let userId = $(this).closest(".profile-follower-item").find(".user_id").val();
+            $.post(url,{
+                friend_id : userId,
+                user_id : currentId,
+                _token : "{{ csrf_token() }}",
+            }).done(function(data){
+                $(".profile-head .profile-follower-item").load(location.href+" .profile-head .profile-follower-item");
+                console.log(data);
+            })
+        })
+
+        
+    </script>
 @endpush

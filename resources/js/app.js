@@ -137,3 +137,79 @@ window.loadmessageCount = function(articleId)
     }
   })
 }
+
+window.removeRequest = function()
+{
+  $(".profile-head").delegate(".remove-request","click",function(){
+    $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+  });
+  let currentReachId = $(this).closest(".pending-btn").find(".currentReachId").val();
+  let ownerId = $(this).closest(".pending-btn").find(".ownerId").val();
+  $.ajax({
+    method: "POST",
+    url: "/dashboard/user-request/remove-pending",
+    data:{
+      "owner_id": ownerId,
+      "currentReachId": currentReachId,
+    },
+    success: function(response)
+    {
+      $(".profile-head .profile-follower-item").load(location.href+" .profile-head .profile-follower-item");
+    }
+  })
+})
+}
+
+window.confirmRequest = function()
+{
+  $(".profile-head").delegate(".confirm-request","click",function(){
+    $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+  });
+  let currentReachId = $(this).closest(".pending-btn").find(".currentReachId").val();
+  let ownerId = $(this).closest(".pending-btn").find(".ownerId").val();
+  $.ajax({
+    method: "POST",
+    url: "/dashboard/user-request/set-confirm",
+    data:{
+      "owner_id": ownerId,
+      "currentReachId": currentReachId,
+    },
+    success: function(response)
+    {
+      $(".profile-head .profile-follower-item").load(location.href+" .profile-head .profile-follower-item");
+      console.log(response);
+    }
+  })
+})
+}
+window.removeFollow = function()
+{
+  $(".profile-head").delegate(".remove-follow","click",function(){
+   $.ajaxSetup({
+    headers:{
+      'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+    }
+   });
+   let currentId = $(this).closest(".profile-follower-item").find(".current_id").val();
+    let userId = $(this).closest(".profile-follower-item").find(".user_id").val();
+  $.ajax({
+    method: "POST",
+    url: "/dashboard/user-request/remove-followed",
+    data:{
+      "owner_id": currentId,
+      "currentReachId": userId,
+    },
+    success: function(response)
+    {
+      $(".profile-head .profile-follower-item").load(location.href+" .profile-head .profile-follower-item");
+      console.log(response);
+    }
+  })
+  })
+}

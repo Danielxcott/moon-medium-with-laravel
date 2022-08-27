@@ -1538,6 +1538,7 @@ padding-left: 1.3rem;
   background-color: #002595;
   border-radius: 0.8rem;
   font-weight: 500;
+  color: var(--light-color);
 }
 .profile-follower-item button a:hover{
   color: var(--light-color);

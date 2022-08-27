@@ -2,7 +2,7 @@
 use App\base;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Comment;
-$commentActive = Comment::where("article_owner_id",Auth::id())->where("status","0")->count();
+$commentActive = Comment::where("article_owner_id",Auth::id())->where("user_id","!=",Auth::id())->where("status","0")->count();
 @endphp
 
 <div class="nav">

@@ -7,6 +7,7 @@ use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\ReportArticleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserManagementController;
+use App\Http\Controllers\UserRequestController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -56,4 +57,10 @@ Route::prefix("dashboard")->group(function(){
     Route::get("/comments",[CommentController::class,"index"])->name("index.comment");
     Route::get("/comment/{artilce:slug}/{comment:id}/update",[CommentController::class,"update"])->name("update.comment");
     Route::post("/comment/remove",[CommentController::class,"destroy"])->name("delete.comment");
+    Route::get("/user-request",[UserRequestController::class,"index"])->name("index.request");
+    Route::post("/user-request/set-request",[UserRequestController::class,"store"])->name("set.request");
+    Route::post("/user-request/set-confirm",[UserRequestController::class,"update"])->name("set.confirm");
+    Route::post("/user-request/remove-request",[UserRequestController::class,"destroy"])->name("remove.request");
+    Route::post("/user-request/remove-followed",[UserRequestController::class,"destroyFollowed"])->name("remove.followed");
+    Route::post("/user-request/remove-pending",[UserRequestController::class,"destroyRequest"])->name("remove.pending");
 });

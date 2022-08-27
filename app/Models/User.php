@@ -68,4 +68,19 @@ class User extends Authenticatable
     {
         return Auth::user()->reactedArticle && Auth::user()->reactedArticle->contains("id",$article->id);
     }
+
+    public function userRequests()
+    {
+        return $this->hasMany(UserRequest::class);
+    }
+    public function userRequest()
+    {
+        return $this->hasOne(UserRequest::class);
+    }
+
+    public function isSent($userId)
+    {
+        return Auth::user()->userRequests && Auth::user()->userRequests->contains("friend_id",$userId);
+    }
+    
 }
