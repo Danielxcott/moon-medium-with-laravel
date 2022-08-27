@@ -71,6 +71,12 @@ class UserRequestController extends Controller
         //
     }
 
+    public function followerCount(Request $request)
+    {
+       $count = UserRequest::where("friend_id",$request->id)->where("status","1")->count();
+       return response()->json(["count"=>$count]);
+    }
+
     /**
      * Update the specified resource in storage.
      *

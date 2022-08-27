@@ -63,4 +63,5 @@ Route::prefix("dashboard")->group(function(){
     Route::post("/user-request/remove-request",[UserRequestController::class,"destroy"])->name("remove.request");
     Route::post("/user-request/remove-followed",[UserRequestController::class,"destroyFollowed"])->name("remove.followed");
     Route::post("/user-request/remove-pending",[UserRequestController::class,"destroyRequest"])->name("remove.pending");
+    Route::post("/user-request/follower-count",[UserRequestController::class,"followerCount"])->name("follower.count");
 });

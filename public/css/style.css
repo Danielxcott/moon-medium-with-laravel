@@ -790,6 +790,9 @@ a {
   border-radius: 50%;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
   backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .profile-head {
   padding: 1rem;
@@ -885,6 +888,9 @@ a {
   height: 5rem;
   line-height: 5rem;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .profile-detail
   .about-group
@@ -1639,6 +1645,7 @@ padding-left: 1.3rem;
   border-radius: 3rem;
   border: none;
   font-size: 1.2rem;
+  color: var(--light-color);
 }
 .reaction-viewer-title{
   display: flex;
@@ -1791,6 +1798,12 @@ padding-left: 1.3rem;
   }
   .burger-mobile:hover .line6 {
     width: 3rem;
+  }
+  .nav .navitem-box .profile-group .profile .profile-name {
+    display: none;
+  }
+  .nav .navitem-box .profile-group .profile-dropbox {
+    right: -28px;
   }
   main .content {
     flex-direction: column;
@@ -1970,7 +1983,7 @@ padding-left: 1.3rem;
   border-radius: 0.5rem;
 }
 .profile-card,.profile-detail{
-  margin: 1.4rem 0.3rem;
+  margin: 1.4rem 0.8rem;
   padding: 0rem;
 }
 .dropbox-list .dropbox-card {

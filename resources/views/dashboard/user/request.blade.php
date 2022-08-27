@@ -34,8 +34,10 @@
                     <tbody>
                         @forelse ($userRequests as $key => $userRequest )
                                 <tr>
-                            <td>{{ $key+1 }}</td>
-                            <td>
+                                    <input type="hidden" class="currentReachId" value="{{ $userRequest->user_id }}" >
+                                    <input type="hidden" class="ownerId" value="{{ Auth::id() }}" >
+                                <td>{{ $key+1 }}</td>
+                                <td>
                                 @if ($userRequest->user->profile == "" && $userRequest->user->avatar == "")
                                 <img class="user_profile_img" src="{{ asset("img/default/user.png") }}" alt="">
                                     @elseif ($userRequest->user->profile == "" && $userRequest->user->avatar !== "")
@@ -48,8 +50,8 @@
                             <td>{{ $userRequest->user->email  }}</td>
                             <td>{{ base::$gender[$userRequest->user->gender] }}</td>
                             <td class="">
-                                <a href="/views/dashboard/post-detail.html" class="btn btn-outline-primary user-action-btn">Confirm</a>
-                                <a href="" class="btn btn-outline-danger user-action-btn">Cancel</a>
+                               <span class="btn btn-outline-primary user-action-btn confirm-request">Confirm</span>
+                                <span class="btn btn-outline-danger user-action-btn cancel-btn">Cancel</span>
                             </td>
                             <td>{{ $userRequest->created_at->format("d M Y") }}</td>
                         </tr>
@@ -66,3 +68,33 @@
     </div>
 </section>
 @endsection
+@push("script")
+    <script>
+        $(".post-create-card-body").delegate(".confirm-request","click",function(){
+            let url = "{{ route('set.confirm') }}";
+            let currentReachId = $(this).closest("tbody tr").find(".currentReachId").val();
+            let ownerId = $(this).closest("tbody tr").find(".ownerId").val();
+            $.post(url,{
+                "owner_id": ownerId,
+                "currentReachId": currentReachId,
+                "_token" : "{{ csrf_token() }}",
+            }).done(function(data){
+                $(".post-create-card-body").load(location.href+" .post-create-card-body");
+                console.log(data);
+            })
+        })
+        $(".post-create-card-body").delegate(".cancel-btn","click",function(){
+            let url = "{{ route('remove.request') }}";
+            let currentReachId = $(this).closest("tbody tr").find(".currentReachId").val();
+            let ownerId = $(this).closest("tbody tr").find(".ownerId").val();
+            $.post(url,{
+                "friend_id": ownerId,
+                "user_id": currentReachId,
+                "_token" : "{{ csrf_token() }}",
+            }).done(function(data){
+                $(".post-create-card-body").load(location.href+" .post-create-card-body");
+                console.log(data);
+            })
+        })
+    </script>
+@endpush

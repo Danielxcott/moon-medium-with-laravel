@@ -213,3 +213,22 @@ window.removeFollow = function()
   })
   })
 }
+window.loadFollowerCount = function(userId)
+{
+  $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+  $.ajax({
+    method: "POST",
+    url: "/dashboard/user-request/follower-count",
+    data:{
+      "id": userId,
+    },
+    success: function(response)
+    {
+      $(".follower-count").html(response.count);
+    }
+  })
+}

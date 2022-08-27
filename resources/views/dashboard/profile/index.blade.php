@@ -5,6 +5,7 @@
     $allRequests = UserRequest::all();
     // $specificUser = UserRequest::Where("friend_id",Auth::id())->where("user_id",$user->id)->where("status","0")->first();
     // $confirm = UserRequest::Where("friend_id",Auth::id())->where("user_id",$user->id)->where("status","1")->first();
+    $yourfollowers = UserRequest::Where("friend_id",$user->id)->where("status","1")->get();
 @endphp
 @extends("layouts.app")
 @section("title") Profile @stop
@@ -156,7 +157,7 @@
                 <span>Posts</span>
             </div>
             <div class="profile-follower-item" id="viewer-follower" onclick="viewerFollower(1)">
-                    <span>12</span>
+                    <span class="follower-count">{{ $yourfollowers->count() }}</span>
                     <span>followers</span>
             </div>
             <div class="profile-follower-item d-none">
@@ -350,6 +351,9 @@
         </div>
     </section> 
 @endsection
+<!--Follower viewer-->
+<x-follower-viewer :yourfollowers="$yourfollowers" />
+
 @push("script")
     <script src="{{ asset("js/sidebar.js") }}"></script>
     <script>
@@ -376,6 +380,20 @@
                 _token : "{{ csrf_token() }}",
             }).done(function(data){
                 $(".profile-head .profile-follower-item").load(location.href+" .profile-head .profile-follower-item");
+                console.log(data);
+            })
+        })
+        $("#viewerFollower1 .reaction-viewers-lists").delegate(".remove-followed","click",function(){
+            let currentId = $(this).closest(".reaction-viewers-item").find(".ownerId").val();
+            let userId = $(this).closest(".reaction-viewers-item").find(".currentReachId").val();
+            let url = "{{ route('remove.followed') }}";
+            $.post(url,{
+                "owner_id" : currentId,
+                "currentReachId" : userId,
+                _token : "{{ csrf_token() }}",
+            }).done(function(data){
+                $(".reaction-viewers-lists").load(location.href+" .reaction-viewers-lists");
+                loadFollowerCount(currentId);
                 console.log(data);
             })
         })
