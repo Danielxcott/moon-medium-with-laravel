@@ -143,7 +143,7 @@
             array_push($visitorRate,$result);
             $uploadResult = Article::whereDate("created_at",$dateGen)->count();
             array_push($uploadRate,$uploadResult);
-          }    
+          }      
 @endphp
 @push("script")
 <script src="{{ asset("js/app.js") }}"></script>

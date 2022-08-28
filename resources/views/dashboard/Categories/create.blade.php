@@ -1,3 +1,6 @@
+@php
+    use App\Models\Article;
+@endphp
 @extends("layouts.app")
 @section("title") Add Category @stop
 @section("head")
@@ -78,11 +81,22 @@
     </div>
 </section>
 @endsection
+@php
+    $categoryName = [];
+    $color = [];
+    $countPostByCateName = [];
+    foreach($categories as $category){
+        array_push($categoryName,$category->name);
+        array_push($color,$category->color);
+        $article = Article::where("category_id",$category->id)->count();
+        array_push($countPostByCateName,$article);    
+    }
+@endphp
 <script src="{{ asset("chart.js/dist/chart.min.js") }}"></script>
 @push("script")
 <script>
-    let orderFromPlace = [5,15,4,9,7];
-    let places = ["YGN","MDY","NPY","SHAN","MGW"];
+    let orderFromPlace =<?php echo json_encode($countPostByCateName) ?> ;
+    let places = <?php echo json_encode($categoryName) ?>;
 
     let op = document.getElementById('op').getContext('2d');
     let opChart = new Chart(op, {
@@ -92,22 +106,8 @@ data: {
     datasets: [{
         label: '# of Votes',
         data:orderFromPlace,
-        backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-        ],
-        borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-        ],
+        backgroundColor: <?php echo json_encode($color) ?>,
+        borderColor: <?php echo json_encode($color) ?>,
         borderWidth: 1
     }]
 },
