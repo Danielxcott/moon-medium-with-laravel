@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Photo;
+use App\Models\Viewer;
 use App\Models\Article;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -92,9 +93,29 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function show(Article $article)
+    public function show(Article $article,Request $request)
     {
+        if($request->user_id && $request->article_id && $request->device )
+        {
+        $viewer = new Viewer();
+        $viewer->user_id = $request->user_id;
+        $viewer->article_id = $request->article_id;
+        $viewer->device = $request->device;
+        $viewer->save();
         return view("dashboard.Articles.show",compact("article"));
+        }elseif($request->user_id == "" && $request->article_id && $request->device)
+        {
+            $viewer = new Viewer();
+            $viewer->user_id = "0";
+            $viewer->article_id = $request->article_id;
+            $viewer->device = $request->device;
+            $viewer->save();
+            return view("dashboard.Articles.show",compact("article"));  
+        }
+        else
+        {
+        return view("dashboard.Articles.show",compact("article"));
+        }
     }
 
     /**

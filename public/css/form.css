@@ -139,7 +139,7 @@ a {
     transform: scale(0.8);
     color: var(--text-color);
     font-weight: 600;
-    font-size: 2rem;
+    font-size: 1.8rem;
 }
 .line-svg{
     position: absolute;

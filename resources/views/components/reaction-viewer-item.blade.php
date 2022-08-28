@@ -1,4 +1,7 @@
 @props(["reactor"])
+@php 
+use App\base;
+@endphp
 <div class="reaction-viewers-item">
     <div class="reaction-viewer-name">
         @if ($reactor->profile == "" && $reactor->avatar == "")
@@ -9,7 +12,7 @@
         <img src="{{ asset("storage/profile/".$reactor->profile) }}" alt="">
         @endif
        @if ($reactor->name == null)
-       <span><a href="{{ route("detail.user",$reactor->username) }}">{{ base::$removeSpace($reactor->username) }}</a></span>
+       <span><a href="{{ route("detail.user",$reactor->username) }}">{{ base::removeSpace($reactor->username) }}</a></span>
         @else
         <span><a href="{{ route("detail.user",$reactor->username) }}">{{ ucwords($reactor->name) }}</a></span>   
        @endif

@@ -38,4 +38,8 @@ class Article extends Model
     {
         return $this->hasMany(Comment::class);
     }
+    public function viewers()
+    {
+        return $this->hasMany(Viewer::class)->orderBy("id","DESC");
+    }
 }

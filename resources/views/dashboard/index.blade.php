@@ -1,5 +1,8 @@
 @extends("layouts.app")
 @section("title") Dashboard @stop
+@php
+    use Illuminate\Support\Str;
+@endphp
 @section("content")
 <section class="content">
     <div class="quote-container">
@@ -27,70 +30,45 @@
         <!-- <img src="assets/img/Weather Icons/cloud.svg" class="weather-illustrator" alt=""> -->
     </div>
 </section>
+
 <section class="post-content">
     <div class="trend-post">
         <div class="post-title">
             <h4 class="mb-0">Trending Posts</h4>
-            <a href="">See All</a>
+            <a href="{{ route("article.index") }}">See All</a>
         </div>
         <div class="owl-carousel trend-carousel owl-theme">
-            <div class="item">
-                <a href="">
-                    <div class="post-card">
-                       <h4 class="post-header">Lorem ipsum dolor sit amet consectetur.</h4>
-                       <p class="post-paragraph">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque neque aperiam tenetur debitis. Illum recusandae provident expedita aut sapiente alias ...</p>
-                    </div>
-                    <div class="post-controller">
-                        <div class="post-viewers">
-                            <img src="{{ asset("img/user/Teamwork-1.png") }}" class="viewer1" alt="">
-                            <img src="{{ asset("img/user/Teamwork-2.png") }}" class="viewer-2" alt="">
-                            <img src="{{ asset("img/user/Teamwork-3.png") }}" class="viewer-3" alt="">
+            @foreach ($articles as $article )
+                @if ($article->reactors()->where("article_id",$article->id)->count() >= 2)
+                <div class="item">
+                    <a href="{{ route("detail.article",[$article->slug,"user_id"=>Auth::id(),"device"=>request()->server('HTTP_USER_AGENT'),"article_id"=>$article->id]) }}">
+                        <div class="post-card">
+                           <h4 class="post-header">{{ $article->title }}</h4>
+                           <p class="post-paragraph">{{ Str::words($article->excerpt,30) }}</p>
                         </div>
-                        <div class="post-likes">
-                            <i class="fa-solid fa-heart"></i>
-                            <p class="mb-0"><span>24</span> likes</p>
+                        <div class="post-controller">
+                            <div class="post-viewers">
+                                <?php $i=0 ?>
+                                @foreach ($article->viewers as $key => $viewer ) 
+                                <?php if(++$i == 4) break; ?>
+                               @if ($viewer->user->profile == "" && $viewer->user->avatar == "")
+                               <img src="{{ asset("img/default/user.png") }}" class="viewer{{ $key+1 }}" alt="">
+                               @elseif ($viewer->user->profile == "" && $viewer->user->avatar !== "")
+                               <img src="{{ $viewer->user->avatar }}" alt="">
+                               @else
+                               <img src="{{ asset("storage/profile/".$viewer->user->profile) }}" class="viewer{{ $key }}" alt="">
+                               @endif
+                                @endforeach 
+                            </div>
+                            <div class="post-likes">
+                                <i class="fa-solid fa-heart"></i>
+                                <p class="mb-0"><span>{{ $article->reactors->count() }}</span> likes</p>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-            <div class="item">
-                <a href="">
-                    <div class="post-card">
-                       <h4 class="post-header">Lorem ipsum dolor sit amet consectetur.</h4>
-                       <p class="post-paragraph">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque neque aperiam tenetur debitis. Illum recusandae provident expedita aut sapiente alias ...</p>
-                    </div>
-                    <div class="post-controller">
-                        <div class="post-viewers">
-                            <img src="{{ asset("img/user/Teamwork-3.png") }}" class="viewer1" alt="">
-                            <img src="{{ asset("img/user/Teamwork-4.png") }}" class="viewer-2" alt="">
-                            <img src="{{ asset("img/user/Teamwork-5.png") }}" class="viewer-3" alt="">
-                        </div>
-                        <div class="post-likes">
-                            <i class="fa-solid fa-heart"></i>
-                            <p class="mb-0"><span>24</span> likes</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="item">
-                <a href="">
-                    <div class="post-card">
-                       <h4 class="post-header">Lorem ipsum dolor sit amet consectetur.</h4>
-                       <p class="post-paragraph">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque neque aperiam tenetur debitis. Illum recusandae provident expedita aut sapiente alias ...</p>
-                    </div>
-                    <div class="post-controller">
-                        <div class="post-viewers">
-                            <img src="{{ asset("img/user/Teamwork-3.png") }}" class="viewer1" alt="">
-                            <img src="{{ asset("img/user/Teamwork-6.png") }}" class="viewer-2" alt="">
-                            <img src="{{ asset("img/user/Teamwork-7.png") }}" class="viewer-3" alt="">
-                        </div>
-                        <div class="post-likes">
-                            <i class="fa-solid fa-heart"></i>
-                            <p class="mb-0"><span>24</span> likes</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
+                @endif
+            @endforeach
         </div>
     </div>
     <div class="chart-wrapper">

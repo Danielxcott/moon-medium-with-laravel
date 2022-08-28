@@ -326,7 +326,7 @@
                             <div class="article-paragraph @empty($article->thumbnail)
                                 w-100
                             @endempty">
-                                <a href="{{ route("detail.article",$article->slug) }}">
+                                <a href="{{ route("detail.article",[$article->slug,"user_id"=>Auth::id(),"device"=>request()->server('HTTP_USER_AGENT'),"article_id"=>$article->id]) }}">
                                 <h3>{{ $article->title }}</h3>
                                 <p>{{ $article->excerpt }}</p>
                                 </a>
