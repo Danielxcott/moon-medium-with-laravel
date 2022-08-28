@@ -9,11 +9,11 @@
 @section("content")
 <section class="post-create-container">
     <div class="post-create-content">
-        <div class="breadcrumb-nav">
-           <h5 class="back-route"><a href="/dashboard.html">Dashboard</a></h5>
+        <x-breadcrumb >
+            <h5 class="back-route"><a href="{{ route("home") }}">Dashboard</a></h5>
            <i class="fas fa-chevron-right"></i>
            <h5 class="current-route">User Request</h5>
-        </div>
+        </x-breadcrumb>
         <div class="post-create-card">
             <div class="header">
                 <h4>User Request</h4>

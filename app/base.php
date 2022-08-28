@@ -26,4 +26,8 @@ class base {
       $confirm =  UserRequest::Where("friend_id",Auth::id())->where("user_id",$user->id)->where("status","1")->first();
       return $confirm;
    }
+   public static function generateTime($date)
+   {
+      return date('Y-m-d',strtotime($date));
+   }
 }

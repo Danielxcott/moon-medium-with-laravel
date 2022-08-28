@@ -2,6 +2,10 @@
 @section("title") Dashboard @stop
 @php
     use Illuminate\Support\Str;
+    use App\Models\Viewer;
+    use App\Models\Article;
+    use App\base;
+    $viewersdaily = Viewer::orderBy("id","DESC")->get();
 @endphp
 @section("content")
 <section class="content">
@@ -55,6 +59,8 @@
                                <img src="{{ asset("img/default/user.png") }}" class="viewer{{ $key+1 }}" alt="">
                                @elseif ($viewer->user->profile == "" && $viewer->user->avatar !== "")
                                <img src="{{ $viewer->user->avatar }}" alt="">
+                               @elseif ($viewer->user_id == "0")
+                               <img src="{{ asset("img/default/user.png") }}" class="viewer{{ $key+1 }}" >
                                @else
                                <img src="{{ asset("storage/profile/".$viewer->user->profile) }}" class="viewer{{ $key }}" alt="">
                                @endif
@@ -76,9 +82,19 @@
             <div class="post-viewers">
                 <h4 class="mb-0">Viewers & Posts</h4>
                 <div class="viewers-profile">
-                <img src="{{ asset("img/user/Teamwork-8.png") }}" class="viewer1" alt="">
-                <img src="{{ asset("img/user/Teamwork-6.png") }}" class="viewer-2" alt="">
-                <img src="{{ asset("img/user/Teamwork-3.png") }}" class="viewer-3" alt="">
+                    <?php $i=0 ?>
+                @foreach ($viewersdaily as $viewerdaily )
+                 <?php if(++$i == 4) break; ?>
+                 @if ($viewerdaily->user->profile == "" && $viewerdaily->user->avatar == "")
+                 <img src="{{ asset("img/default/user.png") }}" class="viewer1" alt="">
+                 @elseif ($viewerdaily->user->profile == "" && $viewerdaily->user->avatar !== "")
+                 <img src="{{ $viewerdaily->user->avatar }}" alt="">
+                 @elseif ($viewerdaily->user_id == "0")
+                <img src="{{ asset("img/default/user.png") }}" class="viewer1" >
+                 @else
+                 <img src="{{ asset("storage/profile/".$viewerdaily->user->profile) }}" class="viewer{{ $key }}" alt="">
+                 @endif
+                @endforeach
                 </div>
             </div>
             <canvas id="ov"></canvas>
@@ -111,9 +127,103 @@
 @endif
 </section>
 @endsection
+@php
+            $dateArr=[];
+            $visitorRate=[];
+            $uploadRate=[];
+          $todayDate = date('Y-m-d'); 
+          for($i=0;$i<=10;$i++)
+          {
+            $date = date_create($todayDate);
+            date_sub($date,date_interval_create_from_date_string("$i days"));
+            $current = date_format($date,"Y-m-d");
+            array_push($dateArr,$current);
+            $dateGen = base::generateTime($current);
+            $result = Viewer::whereDate("created_at",$dateGen)->count();
+            array_push($visitorRate,$result);
+            $uploadResult = Article::whereDate("created_at",$dateGen)->count();
+            array_push($uploadRate,$uploadResult);
+          }    
+@endphp
 @push("script")
 <script src="{{ asset("js/app.js") }}"></script>
-<script>
+<script src="{{ asset("chart.js/dist/chart.min.js") }}"></script>
 
+<script>
+let dateArr=<?php echo json_encode($dateArr) ?>;
+let orderCounterArr=<?php echo json_encode($visitorRate) ?>;
+let viewcounter = <?php echo json_encode($uploadRate) ?>;
+
+let ctx = document.getElementById('ov').getContext('2d');
+$(function() {
+let myChart = new Chart(ctx, {
+type: 'line',
+data: {
+    labels: dateArr,
+    datasets: [{
+            label: 'Viewers',
+            data: orderCounterArr,
+            backgroundColor: [
+                " #94B49F",
+            ],
+            borderColor: [
+                "#94B49F",
+            ],
+            borderWidth: 2,
+            tension: 0,
+            fill: false,
+            borderColor: '#94B49F',
+            
+        },
+        {
+            label: 'Posts',
+            data: viewcounter,
+            backgroundColor: [
+                " #ECB390",
+            ],
+            borderColor: [
+                "#ECB390",
+            ],
+            borderWidth: 1,
+            tension: 0,
+            fill: false,
+            borderColor: '#ECB390',
+        }
+    ]
+},
+options: {
+    scales: {
+        y:{
+            grid:{
+                display: false,
+                drawBorder : false,
+            },
+            ticks:{
+                display: false,
+            }
+        },
+        x: {
+        grid: {
+        display: false,
+        drawBorder : false,
+        },
+            ticks:{
+                display: false,
+                borderColor: "#fff",
+            }
+        }
+
+    },
+    legend: {
+        labels: {
+            usePointStyle: true,
+        }
+    },
+
+
+},
+});
+
+})
 </script>
 @endpush

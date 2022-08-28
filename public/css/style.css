@@ -651,6 +651,7 @@ input[type="search"]::-webkit-search-results-decoration {
   height: 3.2rem;
   border-radius: 50%;
   object-fit: cover;
+  margin-left: -3px;
 }
 .post-controller .post-viewers img[class|="viewer"] {
   margin-left: -1rem;
@@ -695,6 +696,7 @@ input[type="search"]::-webkit-search-results-decoration {
   height: 3.2rem;
   border-radius: 50%;
   object-fit: cover;
+  margin-left: -8px;
 }
 .chart-wrapper .chart-card .post-viewers .viewers-profile img[class|="viewer"] {
   margin-left: -1rem;
