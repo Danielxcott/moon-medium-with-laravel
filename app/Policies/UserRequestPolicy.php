@@ -10,6 +10,13 @@ class UserRequestPolicy
 {
     use HandlesAuthorization;
 
+    public function before(User $user)
+    {
+        if($user->role == "0")
+        {
+            return true;
+        }
+    }
     /**
      * Determine whether the user can view any models.
      *

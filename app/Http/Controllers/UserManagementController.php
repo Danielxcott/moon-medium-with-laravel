@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class UserManagementController extends Controller
 {
-    public function index()
+    public function index(User $user)
     {
+        Gate::authorize("view",$user);
         $users = User::orderBy("id","DESC")->get();
         return view("dashboard.user.index",compact("users"));
     }

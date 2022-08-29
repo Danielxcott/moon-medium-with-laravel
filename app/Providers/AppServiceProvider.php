@@ -34,6 +34,9 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('isAdmin',function(){
             return Auth::user()->role === "0";
         });
+        Blade::if("isAuthor",function(){
+            return Auth::user()->role === "1" || Auth::user()->role === "0";
+        });
        View::share("categories",Category::all()->last()->get());
        View::share("reports",ReportArticle::orderBy("id","DESC")->get());
        View::share("reportActive",ReportArticle::all()->where("status","active")->count());

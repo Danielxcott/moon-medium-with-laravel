@@ -10,6 +10,13 @@ class ReportArticlePolicy
 {
     use HandlesAuthorization;
 
+    public function before(User $user)
+    {
+        if($user->role==="0")
+        {
+            return true;
+        }
+    }
     /**
      * Determine whether the user can view any models.
      *
@@ -18,7 +25,7 @@ class ReportArticlePolicy
      */
     public function viewAny(User $user)
     {
-        //
+        
     }
 
     /**
@@ -30,7 +37,7 @@ class ReportArticlePolicy
      */
     public function view(User $user, ReportArticle $reportArticle)
     {
-        //
+
     }
 
     /**

@@ -45,12 +45,14 @@
                             </button>
                             <ul class="dropdown-menu">
                               <li><a class="dropdown-item" href="{{ route("detail.user",$article->author->username) }}">Profile</a></li>
+                              @can("view",$article)
                               <li><a class="dropdown-item" href="{{ route("edit.article",$article->slug) }}">Edit</a></li>
                               <li><form action="{{ route("article.destroy",$article->id) }}" method="post">
                                 @csrf
                                 @method("delete")
                                 <button class="btn btn-link text-decoration-none dropdown-item">Delete</button>    
                             </form></li>
+                              @endcan
                               <li class="dropdown-item">
                                 <div class="btn-group">
                                 <button class="btn report-btn" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">

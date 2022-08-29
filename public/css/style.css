@@ -593,6 +593,7 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 .owl-carousel {
   width: 60rem;
+  overflow: hidden;
 }
 .owl-theme .item {
   background-color: var(--light-color);
@@ -602,6 +603,7 @@ input[type="search"]::-webkit-search-results-decoration {
   height: 360.5px;
   padding: 2rem;
   transition: all 0.3s;
+  border-radius: 1.8rem;
 }
 .owl-theme .item::before {
   content: "";
@@ -617,13 +619,15 @@ input[type="search"]::-webkit-search-results-decoration {
   );
   clip-path: circle(50px at -80% 120%);
   transition: 0.5s ease-in-out;
-  z-index: -1;
+  z-index: -3;
 }
 .owl-theme .item:hover::before {
   clip-path: circle(250px at 80% -16%);
+  border-radius: 2rem;
 }
 .owl-theme .item:hover {
   transform: scale(1.03);
+  border-radius: 3rem;
 }
 .post-card .post-header {
   font-size: 3rem;
@@ -811,6 +815,8 @@ a {
   height: 10rem;
   object-fit: cover;
   border-radius: 50%;
+  border: 0.3rem solid var(--light-color);
+
 }
 .profile-head .profile-name h4 {
   font-size: 2.2rem;
@@ -1551,10 +1557,10 @@ padding-left: 1.3rem;
 .profile-follower-item button a:hover{
   color: var(--light-color);
 }
-.profile-follower-item button:last-child {
+.profile-follower-item .edit-btn {
   background-color: #383838;
 }
-.profile-follower-item button:last-child:hover a{
+.profile-follower-item .edit-btn:hover a{
   color: var(--light-color);
 }
 .profile-follower-wrapper .profile-follower-list {

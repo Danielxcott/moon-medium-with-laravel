@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
+use Illuminate\Support\Facades\Gate;
 
 class ArticleController extends Controller
 {
@@ -126,6 +127,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
+        Gate::authorize("update",$article);
         return view("dashboard.Articles.edit",compact("article"));
     }
 
@@ -138,6 +140,7 @@ class ArticleController extends Controller
      */
     public function update(UpdateArticleRequest $request, Article $article)
     {
+        Gate::authorize("update",$article);
         request()->validate([
             "slug" => ["required","string",Rule::unique("articles","slug")->ignore($article->id)],
         ]);
@@ -194,6 +197,7 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
+        Gate::authorize("delete",$article);
         Storage::delete("public/thumbnail/".$article->thumbnail);
         foreach($article->photos as $photo)
         {

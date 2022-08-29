@@ -41,12 +41,14 @@
                                 <td>{{ $article->category->name }}</td>
                                 <td class="icon-action">
                                     <a href="{{ route("detail.article",[$article->slug,"user_id"=>Auth::id(),"device"=>request()->server('HTTP_USER_AGENT'),"article_id"=>$article->id]) }}" class="btn btn-outline-primary"><i class="fa-solid fa-clipboard-list"></i></a>
+                                    @can("view",$article)
                                     <a href="{{ route("edit.article",$article->slug) }}" class="btn btn-outline-warning"><i class="fas fa-edit"></i></a>
                                     <form action="{{ route("article.destroy",$article->id) }}" method="post" class="d-inline-block">
                                         @csrf
                                         @method("delete")
                                         <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
                                     </form>
+                                    @endcan
                                 </td>
                             </tr>
                         @empty

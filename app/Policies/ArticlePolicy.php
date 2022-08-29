@@ -2,14 +2,22 @@
 
 namespace App\Policies;
 
-use App\Models\Article;
 use App\Models\User;
+use App\Models\Article;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ArticlePolicy
 {
     use HandlesAuthorization;
 
+    public function before(User $user)
+    {
+        if($user->role==="0")
+        {
+            return true;
+        }
+    }
     /**
      * Determine whether the user can view any models.
      *
@@ -30,7 +38,7 @@ class ArticlePolicy
      */
     public function view(User $user, Article $article)
     {
-        //
+        return $user->id === $article->user_id;
     }
 
     /**
@@ -41,7 +49,7 @@ class ArticlePolicy
      */
     public function create(User $user)
     {
-        //
+        
     }
 
     /**
@@ -53,7 +61,7 @@ class ArticlePolicy
      */
     public function update(User $user, Article $article)
     {
-        //
+        return $user->id === $article->user_id;
     }
 
     /**
@@ -65,7 +73,7 @@ class ArticlePolicy
      */
     public function delete(User $user, Article $article)
     {
-        //
+        return $user->id === $article->user_id;
     }
 
     /**

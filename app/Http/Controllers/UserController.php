@@ -8,6 +8,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -25,11 +26,13 @@ class UserController extends Controller
 
    public function edit(User $user)
    {
-      return view("dashboard.profile.edit",compact("user"));
+        Gate::authorize("view",$user);
+        return view("dashboard.profile.edit",compact("user"));
    }
 
    public function update(User $user, UpdateUserRequest $request)
    {
+      Gate::authorize("update",$user);
       request()->validate([
          "username" => ["required","min:3",Rule::unique("users","username")->ignore($user->id)],
       ]);

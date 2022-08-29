@@ -146,7 +146,9 @@
                 @endif
                 @endif
                 @endif
+                @can("show-button",$user)
                 <button class="edit-btn "><a href="{{ route("edit.profile",$user->username) }}">Edit Profile</a></button>
+                @endcan
             </div>
         </div>
     </div>
@@ -294,6 +296,7 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                   <li><a class="dropdown-item" href="{{ route("index.profile") }}">Profile</a></li>
+                                  @can("show-button",$user)
                                   <li><a class="dropdown-item" href="{{ route("edit.article",$article->slug) }}">Edit</a></li>
                                   <li>
                                     <form action="{{ route("article.destroy",$article->id) }}" method="post">
@@ -302,6 +305,7 @@
                                         <button class="dropdown-item">Delete</button>
                                     </form>
                                   </li>
+                                  @endcan
                                   <li class="dropdown-item">
                                     <div class="btn-group">
                                     <button class="btn report-btn" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
