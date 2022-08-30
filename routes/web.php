@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\PhotoController;
-use App\Http\Controllers\ReportArticleController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\UserManagementController;
-use App\Http\Controllers\UserRequestController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\UserRequestController;
+use App\Http\Controllers\ReportArticleController;
+use App\Http\Controllers\UserManagementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +28,12 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+/*Socil media login */
+Route::get('login/google', [LoginController::class,'redirectToGoogle'])->name("login.google");
+Route::get('login/google/callback', [LoginController::class,'handleGoogleCallback']);
+Route::get('login/facebook', [LoginController::class,'redirectToFacebook'])->name("login.facebook");
+Route::get('login/facebook/callback', [LoginController::class,'handleFacebookCallback']);
+/*Dashboard */
 Route::prefix("dashboard")->middleware(["auth","isBanned"])->group(function(){
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource("/article",ArticleController::class);

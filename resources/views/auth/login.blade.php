@@ -140,8 +140,8 @@
                         <span class="line-two"></span>
                     </div>
                     <div class="choose-options">
-                        <button class="goggle-btn"><a href=""><img src="{{ asset("img/svg/gg.svg") }}" alt=""></a><a href="" class="logo-text">Google</a></button>
-                        <button class="facebook-btn"><a href=""><img src="{{ asset("img/svg/fb.svg") }}" alt=""></a><a href="" class="logo-text">Facebook</a></button>
+                        <button class="goggle-btn"><a href="{{ route("login.google") }}"><img src="{{ asset("img/svg/gg.svg") }}" alt=""></a><a href="{{ route("login.google") }}" class="logo-text">Google</a></button>
+                        <button class="facebook-btn"><a href="{{ route("login.facebook") }}"><img src="{{ asset("img/svg/fb.svg") }}" alt=""></a><a href="{{ route("login.facebook") }}" class="logo-text">Facebook</a></button>
                     </div>
                 </div>
                 <div class="sign-up-location">
