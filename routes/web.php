@@ -55,7 +55,7 @@ Route::prefix("dashboard")->middleware(["auth","isBanned"])->group(function(){
     Route::get("/users",[UserManagementController::class,"index"])->name("index.user");
     Route::post("/user/ban-user",[UserManagementController::class,"banUser"])->name("ban.user");
     Route::post("/user/change-password",[UserManagementController::class,"changePassword"])->name("changePassword.user");
-    Route::get("/user/{user::username}/profile",[UserManagementController::class,"show"])->name("detail.user");
+    Route::get("/user/{user:username}/profile",[UserManagementController::class,"show"])->name("detail.user");
     Route::get("/report-article/{artilce:slug}",[ReportArticleController::class,"store"])->name("set.report");
     Route::get("/report-article/{reportarticle:id}/{article:slug}/update",[ReportArticleController::class,"update"])->name("update.report");
     Route::get("/report",[ReportArticleController::class,"index"])->name("index.report");

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\base;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -53,13 +54,13 @@ class LoginController extends Controller
     //all callback fn
     //gg
     public function handleGoogleCallback(){
-        $user = Socialite::driver('google')->user();
+        $user = Socialite::driver('google')->stateless()->user();
         $this->_registerOrLoginUser($user);
         return redirect()->route("home");
     }
     //fb
     public function handleFacebookCallback(){
-        $user = Socialite::driver('facebook')->user();
+        $user = Socialite::driver('facebook')->stateless()->user();
         $this->_registerOrLoginUser($user);
         return redirect()->route('home');
     }
@@ -69,6 +70,7 @@ class LoginController extends Controller
         if(!$user){
             $user = new User();
             $user->name = $data->name;
+            $user->username = base::removeSpace($data->name);
             $user->email = $data->email;
             $user->password = Hash::make(uniqid());
             $user->provider_id = $data->id;
