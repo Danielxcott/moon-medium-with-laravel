@@ -25,7 +25,7 @@
                             @if ($article->author->profile == "" && $article->author->avatar  == "")
                             <img src="{{ asset("img/default/user.png") }}" alt="">
                             @elseif($article->author->profile  =="" && $article->author->avatar  !== "")
-                            <img src="{{ $user->avatar }}" alt="">
+                            <img src="{{ $article->author->avatar }}" alt="">
                             @else
                             <img src="{{ asset("storage/profile/".$article->author->profile) }}" alt="">
                             @endif

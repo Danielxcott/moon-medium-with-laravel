@@ -106,7 +106,9 @@
 <div class="new-user-card">
     <div class="user-title">
     <h4 class="mb-0">All Users</h4>
-    <a href="">See all</a>
+    @isAdmin()
+    <a href="{{ route("index.user") }}">See all</a>
+    @endisAdmin
     </div>
     <div class="new-user-body">
         <div class="user-profile-left">

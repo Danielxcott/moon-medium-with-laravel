@@ -629,6 +629,9 @@ input[type="search"]::-webkit-search-results-decoration {
   transform: scale(1.03);
   border-radius: 3rem;
 }
+.post-card{
+  height: 79%;
+}
 .post-card .post-header {
   font-size: 3rem;
   font-family: Jacque;
