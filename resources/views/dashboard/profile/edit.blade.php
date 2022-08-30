@@ -6,6 +6,7 @@
     .bio-form{
         font-size: 1.5rem;
     }
+    
 </style>
 @endsection
 @section("content")
@@ -59,7 +60,7 @@
             <div class="profile-edit-update">
                 <div class="profile-follower-item">
                     <button form="edit-profile" class="update-profile-btn" type="submit">Update</button>
-                    <button><a href="{{ route("index.profile") }}">Cancel</a></button>
+                    <button class="cancel-btn"><a href="{{ route("index.profile") }}">Cancel</a></button>
                 </div>
             </div>
         </div>

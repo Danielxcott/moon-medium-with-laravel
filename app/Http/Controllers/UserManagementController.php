@@ -13,7 +13,11 @@ class UserManagementController extends Controller
     public function index(User $user)
     {
         Gate::authorize("view",$user);
-        $users = User::orderBy("id","DESC")->get();
+        $users = User::orderBy("id","DESC")
+        ->with(["userRequests","articles","article","reactedArticle"])
+        ->filter(request(["search_user"]))
+        ->paginate("10")
+        ->withQueryString();
         return view("dashboard.user.index",compact("users"));
     }
 

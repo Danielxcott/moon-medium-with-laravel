@@ -12,6 +12,7 @@
     <!--CSS File-->
     <link rel="stylesheet" href="{{ asset("css/animate.css/animate.min.css") }}">
     <link rel="stylesheet" href="{{ asset("css/style.css") }}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     @yield("head")
 </head>
 <body>
@@ -36,6 +37,7 @@
     @endguest
     <!--Core Js File-->
     <script src="{{ asset("js/jquery.min.js") }}"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     @stack("script")
 </body>
 </html>

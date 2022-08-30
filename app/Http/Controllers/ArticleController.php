@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
+use App\Models\Category;
 use Illuminate\Support\Facades\Gate;
 
 class ArticleController extends Controller
@@ -33,7 +34,7 @@ class ArticleController extends Controller
     protected function getArticles()
     {
         $articles = Article::latest()
-        ->with(["author","category"])
+        ->with(["author","category","photos","reactors","comments","viewers"])
         ->paginate(10)
         ->withQueryString();
         return $articles;
@@ -48,6 +49,25 @@ class ArticleController extends Controller
         return view("dashboard.Articles.create");
     }
 
+    public function listArticle()
+    {
+        $data = [];
+        $articleName = Article::select("title")->get();
+        foreach($articleName as $name)
+        {            
+            $data[] = $name;
+        }
+        return $data;
+    }
+    public function searchArticle(Request $request)
+    {
+        $keyword = request("article_name");
+        $articles = Article::latest("id")->filter(request(["article_name","category"]))
+        ->with(["author","category"])
+        ->paginate(10)
+        ->withQueryString();
+        return view("dashboard.Articles.index",compact(["articles"]));
+    }
     /**
      * Store a newly created resource in storage.
      *

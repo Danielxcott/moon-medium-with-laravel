@@ -21,7 +21,7 @@ class ReportArticleController extends Controller
      */
     public function index()
     {
-        $reports = ReportArticle::orderBy("id","DESC")->get();
+        $reports = ReportArticle::orderBy("id","DESC")->with(["user","article"])->get();
         return view("dashboard.Report.index",compact(["reports"]));
     }
 

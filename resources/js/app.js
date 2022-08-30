@@ -1,6 +1,6 @@
 import * as bootstrap from 'bootstrap';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import "../../node_modules/jquery/dist/jquery";
+// import "../../node_modules/jquery/dist/jquery";
 import "../../node_modules/slick-carousel/slick/slick";
 import "../../node_modules/owl.carousel/dist/owl.carousel";
 

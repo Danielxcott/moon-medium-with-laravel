@@ -19,7 +19,7 @@ class UserRequestController extends Controller
      */
     public function index()
     {
-        $userRequests = UserRequest::where("friend_id",Auth::id())->where("status","0")->get();
+        $userRequests = UserRequest::where("friend_id",Auth::id())->with(["user"])->where("status","0")->get();
         return view("dashboard.user.request",compact(["userRequests"]));
     }
 

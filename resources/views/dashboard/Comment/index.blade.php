@@ -67,6 +67,7 @@
 </section>
 @endsection
 @push("script")
+<script src="{{ asset("js/sidebar.js") }}"></script>
     <script>
         let url = "{{ route('delete.comment') }}";
         $(".post-create-card .post-create-card-body").delegate(".remove-btn","click",function(){

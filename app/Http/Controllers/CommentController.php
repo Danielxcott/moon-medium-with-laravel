@@ -19,7 +19,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-       $comments = Comment::where("user_id",Auth::id())->latest("id")->get();
+       $comments = Comment::where("user_id",Auth::id())->with(["user","article"])->latest("id")->get();
        return view("dashboard.Comment.index",compact(["comments"]));
     }
 

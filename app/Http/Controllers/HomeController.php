@@ -25,8 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        $articles = Article::all();
+        $users = User::orderBy("id","DESC")->get();
+        $articles = Article::orderBy("id","DESC")
+         ->with(["author","category","photos","reactors","comments","viewers"])->get();
         return view("dashboard.index",compact(["users","articles"]));
     }
 }

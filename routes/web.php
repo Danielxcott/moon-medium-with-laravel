@@ -28,7 +28,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::prefix("dashboard")->group(function(){
+Route::prefix("dashboard")->middleware(["auth","isBanned"])->group(function(){
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource("/article",ArticleController::class);
     Route::resource("/article-category",CategoryController::class);
@@ -36,6 +36,8 @@ Route::prefix("dashboard")->group(function(){
     Route::get("/article/{article:slug}/edit",[ArticleController::class,"edit"])->name("edit.article");
     Route::put("/article/{article:slug}/update",[ArticleController::class,"update"])->name("update.article");
     Route::post("/react/{article:slug}/article",[ArticleController::class,"articleReactor"])->name("react.article");
+    Route::get("/article-lists",[ArticleController::class,"listArticle"])->name("article.lists");
+    Route::get("/article-search",[ArticleController::class,"searchArticle"])->name("article.search");
     Route::post("/article/delete-images",[PhotoController::class,"destroy"])->name("delete.article.images");
     Route::post("/article-category/add",[CategoryController::class,"store"])->name("store.category");
     Route::post("/article-category/delete",[CategoryController::class,"destroy"])->name("delete.category");

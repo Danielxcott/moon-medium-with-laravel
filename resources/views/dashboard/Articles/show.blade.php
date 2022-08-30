@@ -35,7 +35,7 @@
                                 @else
                                 <p><a href="{{ route("detail.user",$article->author->username) }}">{{ ucwords($article->author->name) }}</a></p>
                                 @endif
-                                <small class="article-category"><a href="">{{ $article->category->name }}</a></small>
+                                <small class="article-category"><a href="/dashboard/article-search?category={{ $article->category->slug }}">{{ $article->category->name }}</a></small>
                                 <small class="article-created">{{ $article->created_at->diffForHumans() }}</small>
                             </div>
                         </div>

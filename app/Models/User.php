@@ -44,6 +44,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function scopeFilter($q,$filter)
+    {
+        $q->when($filter["search_user"]??false,function($q,$search){
+            $q->where("username","like","%$search%")
+            ->orWhere("name","like","%$search%");
+        });
+    }
+
     public function articles()
     {
         return $this->hasMany(Article::class);

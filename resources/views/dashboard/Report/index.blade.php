@@ -67,6 +67,7 @@
 </section>
 @endsection
 @push("script")
+<script src="{{ asset("js/sidebar.js") }}"></script>
     <script>
         let url = "{{ route('delete.report') }}";
         $(".report-table").delegate("#trash-btn","click",function(){

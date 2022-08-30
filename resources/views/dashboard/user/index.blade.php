@@ -82,6 +82,7 @@
                         @endforelse
                         
                     </tbody>
+                    {{ $users->onEachSide(1)->links() }}
                 </table>
             </div>
         </div>
@@ -90,6 +91,7 @@
 @endsection
 @push("script")
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{{ asset("js/sidebar.js") }}"></script>
 <script>
     function banConfirm(id){
     banConfirmRole(id);       

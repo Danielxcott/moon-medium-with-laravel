@@ -69,6 +69,7 @@
 </section>
 @endsection
 @push("script")
+<script src="{{ asset("js/sidebar.js") }}"></script>
     <script>
         $(".post-create-card-body").delegate(".confirm-request","click",function(){
             let url = "{{ route('set.confirm') }}";

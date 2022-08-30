@@ -11,7 +11,7 @@
             <x-siderbar-item link="{{ route('home') }}" name="Dashboard" class="fa-home"></x-siderbar-item>
             @isAuthor
             <x-siderbar-item link="{{ route('article.create') }}" name="Create Post" class="fa-file-circle-plus"></x-siderbar-item>
-            <x-siderbar-item link="{{ route('article.index') }}" name="All posts" class="fa-file-lines"></x-siderbar-item>
+            <x-siderbar-item link="{{ route('article.index') }}" name="All posts" class="fa-newspaper"></x-siderbar-item>
             @endisAuthor
             @isAdmin()
             <x-siderbar-item link="{{ route('article-category.create') }}" name="Create Category" class="fa-list-ul"></x-siderbar-item>
