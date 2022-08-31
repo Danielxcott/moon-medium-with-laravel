@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\User;
 use App\Models\UserRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,5 +30,10 @@ class base {
    public static function generateTime($date)
    {
       return date('Y-m-d',strtotime($date));
+   }
+
+   public static function getFollowerName($id)
+   {
+      return User::where("id",$id)->first();
    }
 }

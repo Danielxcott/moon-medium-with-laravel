@@ -152,4 +152,16 @@ class UserRequestController extends Controller
         return response()->json(["status","message"=>"you removed the friend request."]);
 
     }
+
+    /*Frontend remove follower */
+    public function removeFollowed(Request $request)
+    {
+        $userRequest = UserRequest::where("user_id",$request->currentReachId);
+        if($userRequest->exists())
+        {
+            $userRequest = UserRequest::where("user_id",$request->currentReachId)->where("friend_id",$request->owner_id)->first();
+            $userRequest->delete();
+        }
+        return response()->json(["status","message"=>"you removed your follower."]);
+    }
 }

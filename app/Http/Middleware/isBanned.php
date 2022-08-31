@@ -17,9 +17,14 @@ class isBanned
      */
     public function handle(Request $request, Closure $next)
     {
+        if(Auth::check())
+        {
         if(Auth::user()->isBanned == "1")
         {
             Auth::logout();
+            return redirect()->route("login");
+        }
+        }else{
             return redirect()->route("login");
         }
         return $next($request);

@@ -8,6 +8,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\UserRequestController;
 use App\Http\Controllers\ReportArticleController;
 use App\Http\Controllers\UserManagementController;
@@ -23,9 +24,9 @@ use App\Http\Controllers\UserManagementController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 /*Socil media login */
@@ -33,8 +34,21 @@ Route::get('login/google', [LoginController::class,'redirectToGoogle'])->name("l
 Route::get('login/google/callback', [LoginController::class,'handleGoogleCallback']);
 Route::get('login/facebook', [LoginController::class,'redirectToFacebook'])->name("login.facebook");
 Route::get('login/facebook/callback', [LoginController::class,'handleFacebookCallback']);
+
+
+/*Frontend*/
+Route::middleware(["auth","isBanned"])->group(function(){
+    Route::get("/",[FrontendController::class,"index"])->name("index.frontend");
+    Route::post("/followers/remove-followed",[UserRequestController::class,"removeFollowed"])->name("follower.removeFollower");
+});
+
+
+
+
+
+
 /*Dashboard */
-Route::prefix("dashboard")->middleware(["auth","isBanned"])->group(function(){
+Route::prefix("dashboard")->middleware(["isAdmin","isBanned"])->group(function(){
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource("/article",ArticleController::class);
     Route::resource("/article-category",CategoryController::class);

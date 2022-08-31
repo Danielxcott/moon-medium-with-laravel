@@ -680,7 +680,7 @@ input[type="search"]::-webkit-search-results-decoration {
 /*Trend post end*/
 /*Chart content start*/
 .chart-wrapper {
-  margin-top: 4.3rem;
+  margin-top: 3.3rem;
   width: 44rem;
   transition: all 0.5s;
 }
@@ -691,6 +691,7 @@ input[type="search"]::-webkit-search-results-decoration {
   background-color: var(--light-color);
   box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
   border-radius: 0.8rem;
+  height: 100%;
 }
 .chart-wrapper .chart-card .post-viewers {
   display: flex;

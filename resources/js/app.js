@@ -73,6 +73,45 @@ $('.user-profile-left').slick({
     useTransform: false,
   }); 
 
+  try{
+    $('.category-lists-mobile').slick({
+        infinite: false,
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        variableWidth: true,
+        responsive: [
+            {
+              breakpoint: 1200,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 1,
+              },
+            },
+            {
+              breakpoint: 1008,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+              },
+            },
+            {
+              breakpoint: 800,
+              settings: 'unslick',
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                  slidesToShow: 2,
+                  slidesToScroll: 1,
+                },
+              },
+          ],
+      });
+}catch(error)
+{
+    console.warn("slick carousel is not support here")
+}
+
   window.banConfirmRole = function(id){
     Swal.fire({
         title: 'Are you sure to ban this user?',

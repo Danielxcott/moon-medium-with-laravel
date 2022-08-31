@@ -17,11 +17,11 @@
   }
   @font-face {
     font-family: Grande-Foyage;
-    src: url("/assets/font/GrandeFoyage.ttf");
+    src: url("../font/GrandeFoyage.ttf");
   }
   @font-face {
     font-family: Jacque;
-    src: url("/assets/font/JacquesPro-Regular.ttf");
+    src: url("../font/JacquesPro-Regular.ttf");
   }
   
   body {
@@ -244,7 +244,7 @@ input[type="search"]::-webkit-search-results-decoration {
     width: 1rem;
     height: 1rem;
     border-radius: 50%;
-    background-color: var(--online-color);
+    background-color: var(--offline-color);
     top: 38px;
     left: 38px;
 }
@@ -343,6 +343,8 @@ input[type="search"]::-webkit-search-results-decoration {
     border: none;
     padding: 1.3rem 2rem;
     border-radius: 5rem;
+    color: white;
+    font-size: 1.3rem;
 }
 .follower-item button a,
 .newuser-btn a,
@@ -368,6 +370,15 @@ input[type="search"]::-webkit-search-results-decoration {
     top: 44px;
     left: 30px;
 }
+.follower-item .offline-status{
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background-color: var(--offline-color);
+    top: 44px;
+    left: 30px;
+}
 .suggest-options{
     padding: 2rem 0;
 }
@@ -387,6 +398,9 @@ input[type="search"]::-webkit-search-results-decoration {
     margin: 0.4rem;
     text-align: center;
     transition: all 0.3s linear;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .category-lists .category-item:hover,
 .content-article-footer small:first-child:hover{
