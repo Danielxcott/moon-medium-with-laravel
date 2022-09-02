@@ -33,7 +33,7 @@
                     data-bs-title="The “slug” is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens.">
                     Slug
                     </label>
-                    <input type="text" id="slug" name="slug" class="form-control @error("slug")
+                    <input type="text" value="{{ old("slug") }}" id="slug" name="slug" class="form-control @error("slug")
                         is-invalid
                     @enderror">
                     @error("slug")

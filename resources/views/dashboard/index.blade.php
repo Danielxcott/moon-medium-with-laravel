@@ -48,7 +48,7 @@
                     <a href="{{ route("detail.article",[$article->slug,"user_id"=>Auth::id(),"device"=>request()->server('HTTP_USER_AGENT'),"article_id"=>$article->id]) }}">
                         <div class="post-card">
                            <h4 class="post-header">{{ $article->title }}</h4>
-                           <p class="post-paragraph">{{ Str::words($article->excerpt,30) }}</p>
+                           <p class="post-paragraph">{{ Str::words($article->excerpt,17) }}</p>
                         </div>
                         <div class="post-controller">
                             <div class="post-viewers">

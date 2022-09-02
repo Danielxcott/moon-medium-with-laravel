@@ -36,7 +36,7 @@ $decode = html_entity_decode($article->excerpt,ENT_QUOTES);
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="#">Profile</a></li>
               @can("view",$article)
-              <li><a class="dropdown-item" href="#">Edit</a></li>
+              <li><a class="dropdown-item" href="{{ route("edit.farticle",$article->slug) }}">Edit</a></li>
               <li><a class="dropdown-item" href="#">Delete</a></li>
               @endcan
               <li class="dropdown-item">
@@ -54,13 +54,13 @@ $decode = html_entity_decode($article->excerpt,ENT_QUOTES);
           </div>
     </div>
     <div class="content-article-group {{ $article->thumbnail ?? "flex-column align-items-start"  }}">
-        @isset($article->thumbnail)
+        @if($article->thumbnail !== "" && $article->thumbnail !== null)
         <img src="{{ asset("storage/thumbnail/".$article->thumbnail) }}" alt="">
-        @endisset
+        @endif
         <div class="article-paragraph">
             <a href="/views/frontend/post-detail.html">
             <h3>{{ $article->title }}</h3>
-            <p><?php echo Str::words($decode, 50, '...') ?></p>
+            <p>{{ $article->excerpt }}</p>
             </a>
         </div>
     </div>

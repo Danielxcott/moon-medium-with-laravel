@@ -42,6 +42,9 @@ Route::middleware(["auth","isBanned"])->group(function(){
     Route::post("/followers/remove-followed",[UserRequestController::class,"removeFollowed"])->name("follower.removeFollower");
     Route::get("/article-create",[FrontendController::class,"create"])->name("create.article");
     Route::post("/article-store",[FrontendController::class,"store"])->name("store.article");
+    Route::get("/article-edit/{article:slug}",[FrontendController::class,"edit"])->name("edit.farticle");
+    Route::post("/article-thumbnail-delete",[FrontendController::class,"thumbnailRemove"])->name("remove.thumbnail");
+    Route::put("/article-update/{article:slug}",[FrontendController::class,"update"])->name("update.farticle");
 });
 
 

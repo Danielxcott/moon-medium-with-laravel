@@ -4,4 +4,5 @@
     @empty
     <h3 class="text-center mb-0">No articles currently.</h3>
     @endforelse
+    {{ $articles->links() }}
 </div>
