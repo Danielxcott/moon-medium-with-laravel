@@ -11,13 +11,15 @@
                 <i class="fas fa-search"></i>
             </button>
         </div>
+        @if (!(request()->url() === route("index.frontend"))) 
         <button type="button" class="profile-search nav-home">
-            <a href="/index.html">
+            <a href="{{ route("index.frontend") }}">
                 <i class="fas fa-home"></i>
             </a>
         </button>
+        @endif
         <button type="button" class="profile-search nav-paragraph">
-            <a href="/views/frontend/add-post.html">
+            <a href="{{ route("create.article") }}">
                 <i class="fas fa-paragraph"></i>
             </a>
         </button>

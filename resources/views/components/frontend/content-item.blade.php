@@ -1,4 +1,7 @@
 @props(["article"])
+@php
+$decode = html_entity_decode($article->excerpt,ENT_QUOTES);
+@endphp
 <div class="content-items">
     <div class="content-user-group">
         <div class="user-profile">
@@ -57,7 +60,7 @@
         <div class="article-paragraph">
             <a href="/views/frontend/post-detail.html">
             <h3>{{ $article->title }}</h3>
-            <p>{{ $article->excerpt }}</p>
+            <p><?php echo Str::words($decode, 50, '...') ?></p>
             </a>
         </div>
     </div>

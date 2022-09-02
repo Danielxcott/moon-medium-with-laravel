@@ -20,7 +20,9 @@
         @include("frontend.fnav")
     <!--Nav end-->
         <!--Aside start-->
+        @if (request()->url() === route("index.frontend"))
         @include("frontend.faside")
+        @endif
         <!--Aside end-->
         <!-- main start-->
         @yield("content")

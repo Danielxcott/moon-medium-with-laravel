@@ -40,6 +40,8 @@ Route::get('login/facebook/callback', [LoginController::class,'handleFacebookCal
 Route::middleware(["auth","isBanned"])->group(function(){
     Route::get("/",[FrontendController::class,"index"])->name("index.frontend");
     Route::post("/followers/remove-followed",[UserRequestController::class,"removeFollowed"])->name("follower.removeFollower");
+    Route::get("/article-create",[FrontendController::class,"create"])->name("create.article");
+    Route::post("/article-store",[FrontendController::class,"store"])->name("store.article");
 });
 
 
