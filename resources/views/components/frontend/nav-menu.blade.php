@@ -15,7 +15,7 @@
             </a>
         </span>
         <span style="--i:2;">
-            <a href="/views/frontend/add-post.html"><i class="fas fa-paragraph"></i></a>
+            <a href="{{ route("create.article") }}"><i class="fas fa-paragraph"></i></a>
         </span>
         <span style="--i:3;" class="">
             <a href="/views/frontend/user-search.html"><i class="fas fa-users"></i></a>

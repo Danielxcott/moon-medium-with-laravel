@@ -1,6 +1,6 @@
 <nav>
     <h3 class="nav-title mb-0">
-        <a href="/index.html">MOON</a>
+        <a href="{{ route("index.frontend") }}">MOON</a>
     </h3>
     <div class="nav-items">
         <div class="search-box">

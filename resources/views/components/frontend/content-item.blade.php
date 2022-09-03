@@ -37,19 +37,28 @@ $decode = html_entity_decode($article->excerpt,ENT_QUOTES);
               <li><a class="dropdown-item" href="#">Profile</a></li>
               @can("view",$article)
               <li><a class="dropdown-item" href="{{ route("edit.farticle",$article->slug) }}">Edit</a></li>
-              <li><a class="dropdown-item" href="#">Delete</a></li>
+              <li><form action="{{ route("remove.farticle",$article->id) }}" method="post">
+                @csrf
+                @method("delete")
+                <button class="btn btn-link text-decoration-none dropdown-item">Delete</button>    
+            </form></li>
               @endcan
+              @if (Auth::id() !== $article->author->id)
               <li class="dropdown-item">
                 <div class="btn-group">
                 <button class="btn report-btn" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                     Report
                 </button>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Harassment</a></li>
-                      <li><a class="dropdown-item" href="">False Information</a></li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route("set.freport",[$article->slug,"message"=>"0","id"=>Auth::id()]) }}">Spam</a>
+                        </li>
+                      <li><a class="dropdown-item" href="{{ route("set.freport",[$article->slug,"message"=>"1","id"=>Auth::id()]) }}">Harassment</a></li>
+                      <li><a class="dropdown-item" href="{{ route("set.freport",[$article->slug,"message"=>"2","id"=>Auth::id()]) }}">False Information</a></li>
                     </ul>
                   </div>
                 </li>
+              @endif
             </ul>
           </div>
     </div>
@@ -58,7 +67,7 @@ $decode = html_entity_decode($article->excerpt,ENT_QUOTES);
         <img src="{{ asset("storage/thumbnail/".$article->thumbnail) }}" alt="">
         @endif
         <div class="article-paragraph">
-            <a href="/views/frontend/post-detail.html">
+            <a href="{{ route("show.farticle",$article->slug) }}">
             <h3>{{ $article->title }}</h3>
             <p>{{ $article->excerpt }}</p>
             </a>

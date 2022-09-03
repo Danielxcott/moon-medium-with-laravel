@@ -684,14 +684,19 @@ input[type="search"]::-webkit-search-results-decoration {
     align-items: center;
     padding: 1.3rem 0;
 }
-.reaction-controller{
+.reaction-controller, .reaction, .comment{
     display: flex;
+    align-items: center;
 }
 .reaction{
     flex:1 0 7rem;
 }
 .reaction .reaction-count{
     cursor: pointer;
+}
+.reaction>form>button{
+    font-size: 1.8rem;
+    text-align: center;
 }
 .reaction a,
 .comment i{

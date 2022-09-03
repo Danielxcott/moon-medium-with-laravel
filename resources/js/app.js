@@ -271,3 +271,25 @@ window.loadFollowerCount = function(userId)
     }
   })
 }
+
+
+/*Frontend */
+window.loadmessageCount = function(articleId)
+{
+  $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+  $.ajax({
+    method: "POST",
+    url: "/load-message-count",
+    data:{
+      "id": articleId,
+    },
+    success: function(response)
+    {
+      $(".message-count").html(response.count);
+    }
+  })
+}

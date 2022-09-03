@@ -45,6 +45,12 @@ Route::middleware(["auth","isBanned"])->group(function(){
     Route::get("/article-edit/{article:slug}",[FrontendController::class,"edit"])->name("edit.farticle");
     Route::post("/article-thumbnail-delete",[FrontendController::class,"thumbnailRemove"])->name("remove.thumbnail");
     Route::put("/article-update/{article:slug}",[FrontendController::class,"update"])->name("update.farticle");
+    Route::get("/article-detail/{article:slug}",[FrontendController::class,"show"])->name("show.farticle");
+    Route::post("/article/comment",[FrontendController::class,"comStore"])->name("store.fcomment");
+    Route::post("/load-message-count",[FrontendController::class,"loadmessageCount"])->name("countMessage.comment");
+    Route::post("/react/{article:slug}/article",[FrontendController::class,"articleReactor"])->name("react.farticle");
+    Route::delete("/article/{article:id}/delete",[FrontendController::class,"destroy"])->name("remove.farticle");
+    Route::get("/report-article/{artilce:slug}",[FrontendController::class,"storeReport"])->name("set.freport");
 });
 
 

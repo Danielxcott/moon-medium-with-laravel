@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Article;
-use App\Models\Category;
+use App\Models\User;
 use App\Models\Photo;
+use App\Models\Article;
+use App\Models\Comment;
+use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
+use App\Models\ReportArticle;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\StoreCommentRequest;
 
 class FrontendController extends Controller
 {
@@ -30,6 +35,8 @@ class FrontendController extends Controller
         $categories = Category::all();
         return view("frontend.Article.create",compact('categories'));
     }
+
+    /*Article */
 
     public function store(Request $request)
     {
@@ -74,11 +81,13 @@ class FrontendController extends Controller
 
     public function edit(Article $article)
     {
+        Gate::authorize("update",$article);
         return view("frontend.Article.edit",compact("article"));
     }
 
     public function update(Article $article,Request $request)
     {
+        Gate::authorize("update",$article);
         request()->validate([
             "title" => ["required","min:3"],
             "slug" => ["required","string",Rule::unique("articles","slug")->ignore($article->id)],
@@ -125,6 +134,85 @@ class FrontendController extends Controller
         Storage::delete("public/thumbnail/".$articleThumbnail);
         $article->thumbnail = null;
         $article->update();
+        return back();
+    }
+
+    public function destroy(Article $article)
+    {
+        Gate::authorize("delete",$article);
+        Storage::delete("public/thumbnail/".$article->thumbnail);
+        foreach($article->photos as $photo)
+        {
+            Storage::delete("public/article_images/".$photo->images);
+            $photo->delete();
+        }
+        $article->delete();
+        return to_route("article.index");
+    }
+
+    public function show(Article $article)
+    {
+        return view("frontend.Article.show",compact("article"));
+    }
+
+    public function articleReactor(Article $article)
+    {
+
+        if(User::find(Auth::id())->isReacted($article))
+        {
+            $article->unReacted();
+        }else
+        {
+            $article->reacted();
+        }
+        return back();
+
+    }
+    /*Comment */
+    public function comStore(StoreCommentRequest $request)
+    {
+        $validate = Validator::make($request->all(),[
+            "message" => "required|string",
+        ]);
+        if($validate->fails())
+        {
+            return response()->json(["status"=>422,"message"=>$validate->errors()]);
+        }
+        if(Auth::check())
+        {
+        $getArticleOwnerId = Article::where("user_id",$request->article_owner_id)->first()->user_id;
+        $comment = new Comment();
+        $comment->article_id = $request->article_id;
+        $comment->user_id = $request->user_id;
+        $comment->message = $request->message;
+        $comment->article_owner_id = $getArticleOwnerId;
+        $comment->status = "0";
+        $comment->save();
+        return response()->json(["status"=>200,"message"=>"You comment the current post"]);
+        }else
+        {
+            return response()->json(["status"=>401,"message"=>"Please login your acc or register the acc first"]);
+        }
+    }
+
+    public function loadmessageCount(Request $request)
+    {
+        $message = Comment::where("article_id",$request->id)->count();
+        return response()->json(["count"=>$message]);
+    }
+
+    /*Report */
+    public function storeReport(Request $request,$slug)
+    {
+       $getArticleId = Article::where("slug",$slug)->first()->id;
+       $message = $request->message;
+       $userId = $request->id;
+       $report = new ReportArticle();
+        $report->article_id = $getArticleId;
+        $report->report_message = $message;
+        $report->user_id = $userId;
+        $report->status = "active";
+        $report->save();
         return back();
     }
 }
