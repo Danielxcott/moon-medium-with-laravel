@@ -14,53 +14,7 @@
 <div class="content-aside">
     <div class="related-post">
         <h3 class="mb-0">Related Posts</h3>
-        <div class="related-post-lists">
-            <div class="related-post-item">
-                <div class="related-post-owner">
-                    <div class="user-name">
-                        <img src="/assets/img/user/Teamwork-6.png" alt="">
-                        <span><a href="">Lucifer</a></span>
-                    </div>
-                    <a href="" class="related-post-link">
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure, dignissimos.
-                    </p>
-                    </a>
-                </div>
-                <a href="" class="related-post-img">
-                <img src="/assets/img/posts/f68acc1ec6b3067888ad0f6c52ef275d.jpeg" alt="">
-                </a>
-            </div>
-            <div class="related-post-item">
-                <div class="related-post-owner">
-                    <div class="user-name">
-                        <img src="/assets/img/user/Teamwork-6.png" alt="">
-                        <span><a href="">Lucifer</a></span>
-                    </div>
-                    <a href="" class="related-post-link">
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure, dignissimos.
-                    </p>
-                    </a>
-                </div>
-                <a href="" class="related-post-img">
-                <img src="/assets/img/posts/f68acc1ec6b3067888ad0f6c52ef275d.jpeg" alt="">
-                </a>
-            </div>
-            <div class="related-post-item">
-                <div class="related-post-owner">
-                    <div class="user-name">
-                        <img src="/assets/img/user/Teamwork-6.png" alt="">
-                        <span><a href="">Lucifer</a></span>
-                    </div>
-                    <a href="" class="related-post-link">
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure, dignissimos.
-                    </p>
-                    </a>
-                </div>
-                <a href="" class="related-post-img">
-                <img src="/assets/img/posts/f68acc1ec6b3067888ad0f6c52ef275d.jpeg" alt="">
-                </a>
-            </div>
-        </div>
+        <x-frontend.relate-post-lists :category="$article->category_id" :article="$article->id" />
     </div>
     <div class="suggest-options">
         <div class="categories">
@@ -69,6 +23,7 @@
         </div>
     </div>
 </div>
+<!-- Main Content -->
 <section class="article-content">
     <div class="article-card">
         <div class="article-wrapper">
@@ -106,20 +61,24 @@
                         <button class="btn btn-link text-decoration-none dropdown-item">Delete</button>    
                     </form></li>
                       @endcan
+                      @if (Auth::id() !== $article->author->id)
                       <li class="dropdown-item">
                         <div class="btn-group">
                         <button class="btn report-btn" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                             Report
                         </button>
+                            
                             <ul class="dropdown-menu">
                                 <li>
                                     <a class="dropdown-item" href="{{ route("set.freport",[$article->slug,"message"=>"0","id"=>Auth::id()]) }}">Spam</a>
                                 </li>
                               <li><a class="dropdown-item" href="{{ route("set.freport",[$article->slug,"message"=>"1","id"=>Auth::id()]) }}">Harassment</a></li>
                               <li><a class="dropdown-item" href="{{ route("set.freport",[$article->slug,"message"=>"2","id"=>Auth::id()]) }}">False Information</a></li>
-                            </ul>
+                            </ul> 
+                           
                           </div>
                         </li>
+                        @endif
                     </ul>
                   </div>
             </div>
@@ -186,60 +145,7 @@
     <x-frontend.nav-menu />
 </section>
 <!-- Mobile article-related -->
-<section class="article-related-content">
-    <h3 class="article-header">Related articles</h3>
-    <div class="article-related-item">
-        <div class="article-related-owner">
-            <a href="" class="article-owner-name">
-                <img src="/assets/img/user/Teamwork-7.png" alt="">
-                <span>Lucifer</span>
-            </a>
-            <a href="" class="article-category">Graphic Design</a>
-        </div>
-        <a href="" class="article-related-link">
-            <div class="article-related-paragraph">
-                <h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eum.</h3>
-                <p class="mb-0">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione vitae at non, eaque commodi consequatur quas aspernatur nobis nulla doloremque.</p>
-            </div>
-            <img src="/assets/img/posts/post1.jpeg" alt="">
-        </a>
-        <div class="divider-line"></div>
-    </div>
-    <div class="article-related-item">
-        <div class="article-related-owner">
-            <a href="" class="article-owner-name">
-                <img src="/assets/img/user/Teamwork-7.png" alt="">
-                <span>Lucifer</span>
-            </a>
-            <a href="" class="article-category">Graphic Design</a>
-        </div>
-        <a href="" class="article-related-link">
-            <div class="article-related-paragraph">
-                <h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eum.</h3>
-                <p class="mb-0">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione vitae at non, eaque commodi consequatur quas aspernatur nobis nulla doloremque.</p>
-            </div>
-            <img src="/assets/img/posts/post1.jpeg" alt="">
-        </a>
-        <div class="divider-line"></div>
-    </div>
-    <div class="article-related-item">
-        <div class="article-related-owner">
-            <a href="" class="article-owner-name">
-                <img src="/assets/img/user/Teamwork-7.png" alt="">
-                <span>Lucifer</span>
-            </a>
-            <a href="" class="article-category">Graphic Design</a>
-        </div>
-        <a href="" class="article-related-link">
-            <div class="article-related-paragraph">
-                <h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, eum.</h3>
-                <p class="mb-0">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione vitae at non, eaque commodi consequatur quas aspernatur nobis nulla doloremque.</p>
-            </div>
-            <img src="/assets/img/posts/post1.jpeg" alt="">
-        </a>
-        <div class="divider-line"></div>
-    </div>
-</section>
+<x-frontend.relate-post-lists-mobile :categoryId="$article->category_id" :articleId="$article->id" />
 <x-reaction-viewer :article="$article" />
 <x-comment-section :article="$article"/>
 @endsection
