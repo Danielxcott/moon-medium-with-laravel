@@ -25,7 +25,7 @@ class PostArticleLists extends Component
      */
     public function render()
     {
-        $posts = Article::where("user_id",$this->user)->paginate("10");
+        $posts = Article::where("user_id",$this->user)->latest("id")->paginate("10");
         return view('components.frontend.post-article-lists',compact("posts"));
     }
 }

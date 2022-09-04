@@ -44,7 +44,7 @@
                 </div>
                 <div class="profile-follower-item">
                     <button><a href="">Follow</a></button>
-                    <button><a href="/views/frontend/edit-profile.html">Edit Profile</a></button>
+                    <button><a href="{{ route("profile.edit.user",$user->username) }}">Edit Profile</a></button>
                 </div>
             </div>
         </div>

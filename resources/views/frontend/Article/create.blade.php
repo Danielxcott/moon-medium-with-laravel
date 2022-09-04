@@ -91,6 +91,17 @@
                    </div>
                     @enderror
                 </div>
+                <div class="article-create-item">
+                    <label for="excerpt" >Excerpt</label>
+                    <textarea name="excerpt" class="form-control @error("excerpt")
+                    is-invalid
+                @enderror" cols="30" rows="5" ></textarea>
+                @error("excerpt")
+                    <div class="invalid-feedback"> 
+                        <p class="mb-0">{{ $message }}</p>
+                   </div>
+                    @enderror
+                </div>
                 <div class="article-create-item article-upload-btn">
                     <button class="upload-article">Upload</button>
                     <button class="cancel-btn">

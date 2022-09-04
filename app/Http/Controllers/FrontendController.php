@@ -44,6 +44,7 @@ class FrontendController extends Controller
             "title" => ["required","min:3"],
             "slug" => ["required","min:3",Rule::unique("articles","slug")],
             "description" => ["required"],
+            "excerpt" => ["required"],
             "thumbnail" => ["mimes:png,jpg"],
             "images.*" => ["mimes:png,jpg"],
             "category" => ["required",Rule::exists("categories","id")],
@@ -56,7 +57,7 @@ class FrontendController extends Controller
         $article->slug = Str::slug($request->slug);
         $removeEntity = htmlentities($request->description);
         $article->description = $removeEntity;
-        $article->excerpt = Str::words($removeEntity,50);
+        $article->excerpt = Str::words($request->excerpt,50);
         if($request->hasFile("thumbnail"))
         {
             $newname = uniqid()."thumbnail.".$request->file("thumbnail")->extension();
@@ -220,5 +221,60 @@ class FrontendController extends Controller
     public function profileUser(User $user)
     {
         return view("frontend.Profile.index",compact("user"));
+    }
+    public function editProfileUser(User $user)
+    {
+        Gate::authorize("update",$user);
+        return view("frontend.Profile.edit",compact(["user"]));
+    }
+    public function updateProfileUser(Request $request , User $user)
+    {
+        Gate::authorize("update",$user);
+        request()->validate([
+            "name" => ["required","min:3","max:20"],
+            "username" => ["required","min:3",Rule::unique("users","username")->ignore($user->id)],
+            "profile" => ["mimes:png,jpg"],
+            "cover_img" => ["mimes:png,jpg,gif"],
+            "livein" => ["required","min:3","max:20"],
+            "mobile" => ["required","min:11","max:14"],
+            "gender" => ["required",Rule::in(["0","1","2"])],
+            "bio" => ["max:255"],
+        ]);
+        $user->name = $request->name;
+      if(isset($request->username))
+      {
+         $user->username = $request->username;
+      }
+      $user->username = $user->username;
+      $user->gender = $request->gender;
+      $user->role = $user->role;
+      $user->isBanned = $user->isBanned;
+      $user->email = $request->email;
+     if(isset($request->bio))
+     {
+      $user->bio = $request->bio;
+     }else{
+        $user->bio = null;
+     }
+     $user->livein = $request->livein;
+     $user->mobile = $request->mobile;
+     $user->update();
+     if($request->hasFile("profile"))
+     {
+      Storage::delete('public/profile/'.$user->profile);
+      $newname = uniqid()."profile.".$request->file("profile")->extension();
+      $request->file("profile")->storeAs("public/profile",$newname);
+      $user->profile = $newname;
+      $user->update();
+     }
+     if($request->hasFile("cover_img"))
+     {
+      Storage::delete('public/cover/'.$user->cover_img);
+      $newname = uniqid()."cover.".$request->file("cover_img")->extension();
+      $request->file("cover_img")->storeAs("public/cover",$newname);
+      $user->cover_img = $newname;
+      $user->update();
+     }
+     return redirect()->route("profile.user",compact("user"));
     }
 }

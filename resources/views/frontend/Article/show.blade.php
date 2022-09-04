@@ -39,9 +39,9 @@
                     
                     <div class="article-owner-name">
                         @if ($article->author->name == "")
-                        <p><a href="">{{ $article->author->username }}</a></p>
+                        <p><a href="{{ route("profile.user",$article->author->username) }}">{{ $article->author->username }}</a></p>
                         @else
-                        <p><a href="">{{ $article->author->name }}</a></p> 
+                        <p><a href="{{ route("profile.user",$article->author->username) }}">{{ $article->author->name }}</a></p> 
                         @endif
                         <small class="article-category"><a href="">{{ $article->category->name }}</a></small>
                         <small class="article-created">{{ $article->created_at->diffForHumans() }}</small>
@@ -52,7 +52,7 @@
                         <i class="fas fa-ellipsis-vertical"></i>
                     </button>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Profile</a></li>
+                      <li><a class="dropdown-item" href="{{ route("profile.user",$article->author->username) }}">Profile</a></li>
                       @can("view",$article)
                       <li><a class="dropdown-item" href="{{ route("edit.farticle",$article->slug) }}">Edit</a></li>
                       <li><form action="{{ route("remove.farticle",$article->id) }}" method="post">

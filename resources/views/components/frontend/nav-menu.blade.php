@@ -4,7 +4,7 @@
             <i class="bi bi-plus-lg"></i>
         </div>
         <span style="--i:1;">
-            <a href="/views/frontend/profile.html">
+            <a href="{{ route("profile.user",Auth::user()->username) }}">
                 @if (Auth::user()->profile == "" && Auth::user()->avatar == "")
                 <img src="{{ asset("img/default/user.png") }}" class="nav-menu-profile" alt="">
                 @elseif (Auth::user()->profile == "" && Auth::user()->avatar != "")

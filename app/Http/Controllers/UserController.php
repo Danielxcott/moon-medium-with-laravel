@@ -49,7 +49,9 @@ class UserController extends Controller
      if(isset($request->bio))
      {
       $user->bio = $request->bio;
-     }
+     }else{
+      $user->bio = null;
+   }
      $user->livein = $request->livein;
      $user->mobile = $request->mobile;
      $user->update();
