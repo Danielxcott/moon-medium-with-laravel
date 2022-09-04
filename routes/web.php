@@ -51,6 +51,7 @@ Route::middleware(["auth","isBanned"])->group(function(){
     Route::post("/react/{article:slug}/article",[FrontendController::class,"articleReactor"])->name("react.farticle");
     Route::delete("/article/{article:id}/delete",[FrontendController::class,"destroy"])->name("remove.farticle");
     Route::get("/report-article/{artilce:slug}",[FrontendController::class,"storeReport"])->name("set.freport");
+    Route::get("/profile/{user:username}",[FrontendController::class,"profileUser"])->name("profile.user");
 });
 
 

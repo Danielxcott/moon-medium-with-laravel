@@ -46,7 +46,7 @@
                 <div class="offline-status d-none"></div>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/views/frontend/profile.html">Profile</a></li>
+                    <li><a class="dropdown-item" href="{{ route("profile.user",Auth::user()->username) }}">Profile</a></li>
                     <li>
                         <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit()">
                             Logout

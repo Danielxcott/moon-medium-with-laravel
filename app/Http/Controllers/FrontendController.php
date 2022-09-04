@@ -215,4 +215,10 @@ class FrontendController extends Controller
         $report->save();
         return back();
     }
+
+    /*Profile */
+    public function profileUser(User $user)
+    {
+        return view("frontend.Profile.index",compact("user"));
+    }
 }
