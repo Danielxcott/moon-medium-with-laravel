@@ -54,6 +54,12 @@ Route::middleware(["auth","isBanned"])->group(function(){
     Route::get("/profile/{user:username}",[FrontendController::class,"profileUser"])->name("profile.user");
     Route::get("/profile/{user:username}/edit",[FrontendController::class,"editProfileUser"])->name("profile.edit.user");
     Route::put("/profile/{user:username}/update",[FrontendController::class,"updateProfileUser"])->name("profile.update.user");
+    Route::post("/user/user-request/set-request",[FrontendController::class,"userRequeststore"])->name("set.userrequest");
+    Route::post("/user/user-request/set-confirm",[FrontendController::class,"userRequestUpdate"])->name("set.confirm");
+    Route::post("/user/user-request/remove-request",[FrontendController::class,"userRequestDestroy"])->name("remove.userrequest");
+    Route::post("/user/user-request/remove-followed",[FrontendController::class,"destroyFollowed"])->name("remove.userfollowed");
+    Route::post("/user/user-request/remove-pending",[FrontendController::class,"destroyRequest"])->name("remove.pending");
+    Route::post("/user/user-request/follower-count",[FrontendController::class,"followerCount"])->name("follower.count");
 
 });
 

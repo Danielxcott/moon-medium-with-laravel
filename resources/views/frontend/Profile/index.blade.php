@@ -43,8 +43,48 @@
                     <small>{{ "@".base::removeSpace($user->username) }}</small>
                 </div>
                 <div class="profile-follower-item">
-                    <button><a href="">Follow</a></button>
-                    <button><a href="{{ route("profile.edit.user",$user->username) }}">Edit Profile</a></button>
+                    <input type="hidden" class="user_id" value="{{ $user->id }}">
+                    <input type="hidden" class="current_id" value="{{ Auth::id() }}">
+                    @if (Auth::id() !== $user->id)
+                        @if ($user->isSent($user->id))
+                             <!-- a person who start to follow  -->
+                                @if (Auth::user()->userRequests)
+                                    @foreach (Auth::user()->userRequests as $userRequest )
+                                        @if ($userRequest->friend_id == $user->id && $userRequest->status == "0")
+                                        <button type="button" class="remove-btn">Pending</button> 
+                                        @elseif ($userRequest->friend_id == $user->id && $userRequest->status == "1")
+                                        <button type="button" class="remove-btn">Followed</button> 
+                                        @endif
+                                    @endforeach
+                                @else
+                                <button class="follow-btn">Follow</button>    
+                                @endif
+                        @else
+                        @if (base::specificUser($user))
+                            <div class="dropdown d-inline-block pending-btn">
+                                <input type="hidden" value="{{ $user->id }}" class="currentReachId">
+                                <input type="hidden" value="{{ Auth::id() }}" class="ownerId">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              pending
+                                </button>
+                                <ul class="dropdown-menu">
+                                <li class="dropdown-item confirm-request" onclick="confirmRequest()">Confirm</li>
+                                <li class="dropdown-item remove-request" onclick="removeRequest()">Remove</li>
+                                </ul>
+                            </div>
+                        @else
+                        @if (base::confirm($user))
+                        <Button class="remove-follow" onclick="removeFollow()">Followed</Button> 
+                        @else
+                        <button class="follow-btn">Follow</button>     
+                    @endif  
+                    @endif
+                    @endif
+                    @endif
+
+                    @if (Auth::id() == $user->id)
+                    <button class="edit-btn"><a href="{{ route("profile.edit.user",$user->username) }}">Edit Profile</a></button>
+                    @endif
                 </div>
             </div>
         </div>
@@ -167,4 +207,50 @@
         </div>
         <x-frontend.nav-menu />
 </section>
+<x-follower-viewer :yourfollowers="$yourfollowers" />
+
 @endsection
+@push("script")
+    <script>
+         $(".profile-head").delegate(".follow-btn","click",function(){
+            let url = "{{ route('set.userrequest') }}";
+            let currentId = $(this).closest(".profile-follower-item").find(".current_id").val();
+            let userId = $(this).closest(".profile-follower-item").find(".user_id").val();
+            $.post(url,{
+                friend_id : userId,
+                user_id : currentId,
+                _token : "{{ csrf_token() }}",
+            }).done(function(data){
+                $(".profile-head .profile-follower-item").load(location.href+" .profile-head .profile-follower-item");
+                console.log(data);
+            })
+        })
+        $(".profile-head").delegate(".remove-btn","click",function(){
+            let url = "{{ route('remove.userrequest') }}";
+            let currentId = $(this).closest(".profile-follower-item").find(".current_id").val();
+            let userId = $(this).closest(".profile-follower-item").find(".user_id").val();
+            $.post(url,{
+                friend_id : userId,
+                user_id : currentId,
+                _token : "{{ csrf_token() }}",
+            }).done(function(data){
+                $(".profile-head .profile-follower-item").load(location.href+" .profile-head .profile-follower-item");
+                console.log(data);
+            })
+        })
+        $("#viewerFollower1 .reaction-viewers-lists").delegate(".remove-followed","click",function(){
+            let currentId = $(this).closest(".reaction-viewers-item").find(".ownerId").val();
+            let userId = $(this).closest(".reaction-viewers-item").find(".currentReachId").val();
+            let url = "{{ route('remove.userfollowed') }}";
+            $.post(url,{
+                "owner_id" : currentId,
+                "currentReachId" : userId,
+                _token : "{{ csrf_token() }}",
+            }).done(function(data){
+                $(".reaction-viewers-lists").load(location.href+" .reaction-viewers-lists");
+                loadFollowerCount(currentId);
+                console.log(data);
+            })
+        })
+    </script>
+@endpush

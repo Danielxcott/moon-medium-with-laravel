@@ -54,12 +54,12 @@
     z-index: 3;
   }
   .nav-title{
-    font-size: 2.6rem;
+    font-size: 3.6rem;
     font-family: Grande-Foyage;
   }
   .nav-title a{
     text-decoration: none;
-    color: var(--paragraph-color);
+    color: var(--text-color);
   }
   .nav-items{
     display: flex;
@@ -588,7 +588,7 @@ input[type="search"]::-webkit-search-results-decoration {
     padding: 0 1.2rem;
 }
 .article-owner-item .article-owner-name p{
-    margin-bottom: 0;
+    margin-bottom: 0.5rem;
     font-size: 1.5rem;
     font-size: 1.7rem;
 }
@@ -992,6 +992,7 @@ input[type="search"]::-webkit-search-results-decoration {
     border-radius: 3rem;
     border: none;
     font-size: 1.2rem;
+    color: var(--light-color);
 }
 .reaction-viewer-title{
     display: flex;
@@ -1061,6 +1062,7 @@ input[type="search"]::-webkit-search-results-decoration {
     top: -57px;
     left: 60px;
   }
+
   .profile-follower-item button{
     border: none;
     padding: 1.3rem 1.5rem;
@@ -1068,8 +1070,10 @@ input[type="search"]::-webkit-search-results-decoration {
     background-color: #002595;
     border-radius: 0.8rem;
     font-weight: 500;
+    color: var(--light-color);
   }
-.profile-follower-item button:last-child{
+  .profile-follower-item .edit-btn,
+  .profile-follower-item .cancel-btn{
     background-color: #383838;
   }
   .profile-follower-wrapper .profile-follower-list{
@@ -1724,7 +1728,7 @@ input[type="search"]::-webkit-search-results-decoration {
 @media screen and (max-width:480px)
 {
     nav{
-        padding: 1.8rem 2rem;
+        padding: 1.5rem 2rem;
     }
     nav .nav-home,
    .nav-paragraph,
@@ -1814,7 +1818,7 @@ input[type="search"]::-webkit-search-results-decoration {
     .profile-content,
     .profile-name-group .profile-name{
         width: 100%;
-        padding: 3.2rem 0.8rem;
+        padding: 2.2rem 0.8rem;
     }
     .profile-bio {
         padding: 1rem 1.5rem;

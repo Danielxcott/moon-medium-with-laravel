@@ -51,7 +51,7 @@
             <div class="profile-edit-group">
                 <div class="profile-follower-item">
                     <button form="edit-profile" class="update-profile-btn" type="submit">Update</button>
-                    <button><a href="{{ route("index.frontend") }}">Cancel</a></button>
+                    <button class="cancel-btn"><a href="{{ route("index.frontend") }}">Cancel</a></button>
                 </div>
             </div>
         </div>

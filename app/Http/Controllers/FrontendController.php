@@ -7,6 +7,7 @@ use App\Models\Photo;
 use App\Models\Article;
 use App\Models\Comment;
 use App\Models\Category;
+use App\Models\UserRequest;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\ReportArticle;
@@ -93,6 +94,7 @@ class FrontendController extends Controller
             "title" => ["required","min:3"],
             "slug" => ["required","string",Rule::unique("articles","slug")->ignore($article->id)],
             "description" => ["required"],
+            "excerpt" => ["required"],
             "thumbnail" => ["mimes:png,jpg"],
             "images.*" => ["mimes:png,jpg"],
             "category" => ["required",Rule::exists("categories","id")],
@@ -101,7 +103,7 @@ class FrontendController extends Controller
         $article->slug = Str::slug($article->slug);
         $entities = htmlentities($request->description,ENT_QUOTES);
         $article->description = $entities;
-        $article->excerpt = Str::words($entities, 50, '...');
+        $article->excerpt = Str::words($request->excerpt, 50, '...');
         $article->user_id = Auth::id();
         $article->category_id = $request->category;
         if($request->hasFile("thumbnail"))
@@ -276,5 +278,84 @@ class FrontendController extends Controller
       $user->update();
      }
      return redirect()->route("profile.user",compact("user"));
+    }
+
+    /*User Request */
+    public function userRequestStore(Request $request)
+    {
+        $userRequest = new UserRequest();
+        $userRequest->user_id = $request->user_id;
+        $userRequest->friend_id = $request->friend_id;
+        $userRequest->status = "0";
+        $userRequest->save();
+        return response()->json(["status","message"=>"you send the friend request"]);
+    }
+
+    public function userRequestUpdate(Request $request)
+    {
+        $validate = Validator::make($request->all(),[
+            "currentReachId" => "required|".Rule::exists("users","id"),
+        ]);
+        if($validate->fails() || !(Auth::id()))
+        {
+            return response()->json(["status"=>422,"message"=>"the id is invalid"]);
+        }else
+        {
+            $userRequest = UserRequest::where("friend_id",$request->owner_id)->where("user_id",$request->currentReachId)->first();
+            $userRequest->status = "1";
+            $userRequest->update();
+        }
+        
+        return response()->json(["message"=>"you confrim current request"]);
+    }
+
+    public function userRequestDestroy(Request $request)
+    {
+        
+        $userRequest = UserRequest::where("user_id",$request->user_id);
+        if($userRequest->exists())
+        {
+            $userRequest = UserRequest::where("user_id",$request->user_id)->where("friend_id",$request->friend_id)->first();
+            $userRequest->delete();
+        }
+        return response()->json(["status","message"=>"you removed the friend request."]);
+
+    }
+    public function destroyFollowed(Request $request)
+    {
+        $validate = Validator::make($request->all(),[
+            "currentReachId" => "required|".Rule::exists("users","id"),
+        ]);
+        if($validate->fails() || !(Auth::id()))
+        {
+            return response()->json(["status"=>422,"message"=>"the id is invalid"]);
+        }else{
+            $userRequest = UserRequest::where("user_id",$request->currentReachId)->where("friend_id",$request->owner_id)->where("status","1");
+        if($userRequest->exists())
+        {
+            $userRequest = UserRequest::where("user_id",$request->currentReachId)->where("friend_id",$request->owner_id)->where("status","1")->first();
+            $userRequest->delete();
+            return response()->json(["message"=>"you removed unfollowed"]);
+        }else{
+            return response()->json(["message"=>"something wrong"]);
+        }
+        }
+        
+    }
+    public function destroyRequest(Request $request)
+    {
+        $userRequest = UserRequest::where("user_id",$request->currentReachId)->where("friend_id",$request->owner_id)->where("status","0");
+        if($userRequest->exists())
+        {
+            $userRequest = UserRequest::where("user_id",$request->currentReachId)->where("friend_id",$request->owner_id)->where("status","0")->first();
+            $userRequest->delete();
+        }
+        return response()->json(["message"=>"you removed pending request"]);
+    }
+
+    public function followerCount(Request $request)
+    {
+       $count = UserRequest::where("friend_id",$request->id)->where("status","1")->count();
+       return response()->json(["count"=>$count]);
     }
 }
