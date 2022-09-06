@@ -1,3 +1,9 @@
+@php
+use App\Models\Comment;
+use App\Models\UserRequest;
+    $commentActive = Comment::where("article_owner_id",Auth::id())->where("user_id","!=",Auth::id())->where("status","0")->count();
+$userRequests = UserRequest::where("friend_id",Auth::id())->where("status","0")->count();
+@endphp
 <nav>
     <h3 class="nav-title mb-0">
         <a href="{{ route("index.frontend") }}">MOON</a>
@@ -30,7 +36,9 @@
         </button>
         <button type="button" class="profile-search request-noti">
                 <i class="fas fa-bell"></i>
+                @if ($commentActive > 0 || $userRequests > 0)
                 <div class="get-noti"></div>
+                @endif  
         </button>
         <div class="user-profile">
             <div class="btn-group">

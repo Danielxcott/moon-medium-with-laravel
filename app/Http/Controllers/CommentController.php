@@ -112,7 +112,13 @@ class CommentController extends Controller
                 break;
         }
         $comment->update();
-        return redirect()->route("detail.article",compact(["article"]));
+        if(Auth::user()->role == "0")
+        {
+            return redirect()->route("detail.article",compact(["article"]));
+        }else
+        {
+            return redirect()->route("show.farticle",compact(["article"]));
+        }
     }
 
     public function updateComment(Request $request)

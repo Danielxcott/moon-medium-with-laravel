@@ -28,56 +28,7 @@
         @yield("content")
         <!-- main end-->
     @endguest
-       
-    
-    {{-- <div class="noti-nav">
-        <div class="noti-close"></div>
-        <div class="follower-noti-header">
-            <h3>New requests</h3>
-        </div>
-        <ul class="follower-request-list">
-            <li class="follower-request-item">
-                <a href="" class="follower-request-content">
-                    <img src="/assets/img/user/Teamwork-6.png" alt="">
-                    <div class="follower-request-name">
-                        <span>Lucifer</span>
-                        <small>@lucifer</small>
-                    </div>
-                </a>
-                    <button class="confirm-btn"><a href="">Request</a></button>
-            </li>
-            <li class="follower-request-item">
-                <a href="" class="follower-request-content">
-                    <img src="/assets/img/user/Teamwork-6.png" alt="">
-                    <div class="follower-request-name">
-                        <span>Lucifer</span>
-                        <small>@lucifer</small>
-                    </div>
-                </a>
-                    <button class="confirm-btn"><a href="">Request</a></button>
-            </li>
-            <li class="follower-request-item">
-                <a href="" class="follower-request-content">
-                    <img src="/assets/img/user/Teamwork-6.png" alt="">
-                    <div class="follower-request-name">
-                        <span>Lucifer</span>
-                        <small>@lucifer</small>
-                    </div>
-                </a>
-                    <button class="confirm-btn"><a href="">Request</a></button>
-            </li>
-            <li class="follower-request-item">
-                <a href="" class="follower-request-content">
-                    <img src="/assets/img/user/Teamwork-6.png" alt="">
-                    <div class="follower-request-name">
-                        <span>Lucifer</span>
-                        <small>@lucifer</small>
-                    </div>
-                </a>
-                    <button class="confirm-btn"><a href="">Request</a></button>
-            </li>
-        </ul>
-    </div> --}}
+       <x-frontend.noti-nav />
     <script src="{{ asset("js/jquery.min.js") }}"></script>
     <script src="{{ asset("js/main.js") }}"></script>
     @stack("script")

@@ -347,6 +347,7 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 .noti-link .noti-title p {
   font-size: 1.2rem;
+  margin-bottom: 0;
 }
 .view-btn a {
   color: var(--text-color);
