@@ -24,7 +24,7 @@
             </a>
         </button>
         <button type="button" class="profile-search nav-users">
-            <a href="/views/frontend/user-search.html">
+            <a href="{{ route("user.usersearch") }}">
                 <i class="fas fa-users"></i>
             </a>
         </button>

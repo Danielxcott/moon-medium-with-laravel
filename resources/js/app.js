@@ -388,3 +388,76 @@ window.loadFollowerCount = function(userId)
     }
   })
 }
+
+window.rr = function()
+{
+  $(".newuser-item").delegate(".remove-request","click",function(){
+    $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+  });
+  let currentReachId = $(this).closest(".pending-btn").find(".currentReachId").val();
+  let ownerId = $(this).closest(".pending-btn").find(".ownerId").val();
+  $.ajax({
+    method: "POST",
+    url: "/user/user-request/remove-pending",
+    data:{
+      "owner_id": ownerId,
+      "currentReachId": currentReachId,
+    },
+    success: function(response)
+    {
+       $(".newuser-lists").load(location.href+" .newuser-lists");
+    }
+  })
+})
+}
+window.cr = function()
+{
+  $(".newuser-item").delegate(".confirm-request","click",function(){
+    $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+  });
+  let currentReachId = $(this).closest(".pending-btn").find(".currentReachId").val();
+  let ownerId = $(this).closest(".pending-btn").find(".ownerId").val();
+  $.ajax({
+    method: "POST",
+    url: "/user/user-request/set-confirm",
+    data:{
+      "owner_id": ownerId,
+      "currentReachId": currentReachId,
+    },
+    success: function(response)
+    {
+      $(".newuser-lists").load(location.href+" .newuser-lists");
+    }
+  })
+})
+}
+window.rf = function()
+{
+  $(".newuser-item").delegate(".remove-follow","click",function(){
+   $.ajaxSetup({
+    headers:{
+      'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+    }
+   });
+   let currentId = $(this).closest(".profile-follower-item").find(".current_id").val();
+    let userId = $(this).closest(".profile-follower-item").find(".user_id").val();
+  $.ajax({
+    method: "POST",
+    url: "/user/user-request/remove-followed",
+    data:{
+      "owner_id": currentId,
+      "currentReachId": userId,
+    },
+    success: function(response)
+    {
+      $(".newuser-lists").load(location.href+" .newuser-lists");
+    }
+  })
+  })
+}

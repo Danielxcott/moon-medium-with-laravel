@@ -342,12 +342,11 @@ input[type="search"]::-webkit-search-results-decoration {
     background-color: #1F4690;
     border: none;
     padding: 1.3rem 2rem;
-    border-radius: 5rem;
+    border-radius: 0.7rem;
     color: white;
     font-size: 1.3rem;
 }
 .follower-item button a,
-.newuser-btn a,
 .reactor-follower a,
 .profile-follower-item button a,
 .cancel-btn a,
@@ -393,7 +392,7 @@ input[type="search"]::-webkit-search-results-decoration {
 .category-lists .category-item{
     flex: 1 0 15rem;
     background-color: var(--grey-color);
-    border-radius: 2rem;
+    border-radius: 0.7rem;
     padding: 1rem 1.3rem;
     margin: 0.4rem;
     text-align: center;
@@ -537,6 +536,8 @@ input[type="search"]::-webkit-search-results-decoration {
     border: none;
     border-radius: 5rem;
     background-color: #1F4690;
+    color: var(--light-color);
+    font-size: 1.2rem;
 }
 
 /*Post-detail page*/

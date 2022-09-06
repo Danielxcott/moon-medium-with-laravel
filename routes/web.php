@@ -60,7 +60,7 @@ Route::middleware(["auth","isBanned"])->group(function(){
     Route::post("/user/user-request/remove-followed",[FrontendController::class,"destroyFollowed"])->name("remove.userfollowed");
     Route::post("/user/user-request/remove-pending",[FrontendController::class,"destroyRequest"])->name("remove.pending");
     Route::post("/user/user-request/follower-count",[FrontendController::class,"followerCount"])->name("follower.count");
-
+    Route::get("/moom-medium/user-search",[FrontendController::class,"userSearch"])->name("user.usersearch");
 });
 
 

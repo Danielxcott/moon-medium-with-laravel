@@ -1,7 +1,7 @@
 @props(["article"])
 <div class="article-related-item">
     <div class="article-related-owner">
-        <a href="" class="article-owner-name">
+        <a href="{{ route("profile.user",$article->author->username) }}" class="article-owner-name">
             @if ($article->author->profile == "" && $article->author->avatar =="" )
             <img src="{{ asset("img/default/user.png") }}" alt="">
             @elseif ($article->author->profile == "" && $article->author->avatar !="")

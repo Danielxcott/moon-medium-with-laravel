@@ -18,7 +18,7 @@
             <a href="{{ route("create.article") }}"><i class="fas fa-paragraph"></i></a>
         </span>
         <span style="--i:3;" class="">
-            <a href="/views/frontend/user-search.html"><i class="fas fa-users"></i></a>
+            <a href="{{ route("user.usersearch") }}"><i class="fas fa-users"></i></a>
         </span>
     </div>
 </div>

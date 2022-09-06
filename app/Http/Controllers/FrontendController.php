@@ -358,4 +358,11 @@ class FrontendController extends Controller
        $count = UserRequest::where("friend_id",$request->id)->where("status","1")->count();
        return response()->json(["count"=>$count]);
     }
+
+    /*User search */
+   public function userSearch()
+   {
+    $users = User::orderBy("id","DESC")->where("id","!=",Auth::id())->inRandomOrder()->take(8)->get();
+    return view("frontend.usersearch",compact("users"));
+   }
 }
