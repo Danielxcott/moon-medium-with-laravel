@@ -14,7 +14,8 @@ class Article extends Model
     {
         $q->when($filter['article_name']??false,function($q,$search){
             $q->where(function($q) use ($search){
-                $q->orWhere("title","like","%$search%");
+                $q->orWhere("title","like","%$search%")
+                ->orWhere("excerpt","like","%$search%");
             });
         });
         $q->when($filter['category']??false,function($q,$slug){

@@ -9,14 +9,28 @@ $userRequests = UserRequest::where("friend_id",Auth::id())->where("status","0")-
         <a href="{{ route("index.frontend") }}">MOON</a>
     </h3>
     <div class="nav-items">
+        @if (!(request()->url() === route("user.usersearch")))
         <div class="search-box">
-            <form action="" id="search-btn">
-                <input type="search" placeholder="search" class="input-box">
+            <form action="{{ route("category.search") }}" id="search-btn">
+                @if (request("category"))
+                <input type="hidden" name="category" value="{{ request("category") }}">
+                @endif
+                <input type="search" name="article_name" placeholder="search" class="input-box">
             </form>
             <button type="button" class="search-btn" form="search-btn">
                 <i class="fas fa-search"></i>
             </button>
         </div>
+        @else
+        <div class="search-box">
+            <form action="{{ route("user.search") }}" id="search-btn">
+                <input type="search" name="search_user" placeholder="search" class="input-box">
+            </form>
+            <button type="button" class="search-btn" form="search-btn">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+        @endif
         @if (!(request()->url() === route("index.frontend"))) 
         <button type="button" class="profile-search nav-home">
             <a href="{{ route("index.frontend") }}">

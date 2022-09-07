@@ -375,4 +375,12 @@ class FrontendController extends Controller
     ->withQueryString();
     return view("frontend.filterpage",compact(["articles"]));
    }
+   public function userFilter(Request $request)
+   {
+    $keyword = request("search_user");
+    $users = User::orderBy("id,DESC")->filter(request(["search_user"]))
+    ->with(["userRequests","articles","article","reactedArticle"])
+    ->paginate(8);
+    return view("frontend.usersearch",compact("users"));
+   }
 }

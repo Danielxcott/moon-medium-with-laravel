@@ -85,7 +85,7 @@
                 <div class="content-article-footer">
                     <div>
                         <small>
-                            <a href="search?category={{ $article->category->slug }}">{{ $article->category->name }}</a>
+                            <a href="/search?category={{ $article->category->slug }}{{ request('article_name') ? "&article_name=".request('article_name') : "" }}">{{ $article->category->name }}</a>
                         </small>
                         <small>{{ $article->created_at->diffForHumans() }}</small>
                     </div>

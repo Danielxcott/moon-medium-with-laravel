@@ -1,5 +1,7 @@
 <div class="category-lists">
    @foreach ($categories as $category )
-   <x-frontend.suggest-category-item name="{{ $category->name }}" slug="{{ $category->slug }}" link="/search?category={{ $category->slug }}" />
+      <div class="category-item @if (request("category") === $category->slug) active @endif">
+    <a href="/search?category={{ $category->slug }}{{ request('article_name') ? "&article_name=".request('article_name') : "" }}">{{ $category->name }}</a>
+</div>
    @endforeach
 </div>

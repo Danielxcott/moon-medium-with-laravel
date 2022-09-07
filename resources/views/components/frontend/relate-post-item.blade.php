@@ -10,9 +10,9 @@
             <img src="{{ asset("storage/profile/".$article->author->profile) }}" alt="">
             @endif
             @if ($article->author->name == "")
-            <span><a href="">{{ $article->author->username }}</a></span>
+            <span><a href="{{ route('profile.user',$article->author->username) }}">{{ $article->author->username }}</a></span>
             @else
-            <span><a href="">{{ $article->author->name }}</a></span> 
+            <span><a href="{{ route('profile.user',$article->author->username) }}">{{ $article->author->name }}</a></span> 
             @endif
         </div>
         <a href="{{ route("show.farticle",$article->slug) }}" class="related-post-link">

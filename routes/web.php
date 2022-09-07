@@ -63,6 +63,8 @@ Route::middleware(["auth","isBanned"])->group(function(){
     Route::get("/moom-medium/user-search",[FrontendController::class,"userSearch"])->name("user.usersearch");
     Route::get("/comment/{artilce:slug}/{comment:id}/update",[CommentController::class,"update"])->name("update.fcomment");
     Route::get("/search",[FrontendController::class,"filter"])->name("category.search");
+    Route::get("/user-search",[FrontendController::class,"userFilter"])->name("user.search");
+
 });
 
 
