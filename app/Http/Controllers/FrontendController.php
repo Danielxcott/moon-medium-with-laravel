@@ -365,4 +365,14 @@ class FrontendController extends Controller
     $users = User::orderBy("id","DESC")->where("id","!=",Auth::id())->inRandomOrder()->take(8)->get();
     return view("frontend.usersearch",compact("users"));
    }
+
+   public function filter(Request $request)
+   {
+    $keyword = request("article_name");
+    $articles = Article::orderBy("id,DESC")->filter(request(["article_name","category"]))
+    ->with(["author","category"])
+    ->paginate(10)
+    ->withQueryString();
+    return view("frontend.filterpage",compact(["articles"]));
+   }
 }

@@ -76,9 +76,10 @@ $decode = html_entity_decode($article->excerpt,ENT_QUOTES);
     <div class="content-article-footer">
         <div>
             <small>
-                <a href="">{{ $article->category->name }}</a>
+                <a href="/search?category={{ $article->category->slug }}">{{ $article->category->name }}</a>
             </small>
             <small>{{ $article->created_at->diffForHumans() }}</small>
         </div>
     </div>
+    <div class="divider-line"></div>
 </div>

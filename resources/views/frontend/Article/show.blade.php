@@ -43,7 +43,7 @@
                         @else
                         <p><a href="{{ route("profile.user",$article->author->username) }}">{{ $article->author->name }}</a></p> 
                         @endif
-                        <small class="article-category"><a href="">{{ $article->category->name }}</a></small>
+                        <small class="article-category"><a href="/search?category={{ $article->category->slug }}">{{ $article->category->name }}</a></small>
                         <small class="article-created">{{ $article->created_at->diffForHumans() }}</small>
                     </div>
                 </div>

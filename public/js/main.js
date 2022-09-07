@@ -41,11 +41,15 @@ try{
     console.warn("slick carousel is not support here")
 }
 
-const nav = document.querySelector(".nav-menu"),
+try{
+    const nav = document.querySelector(".nav-menu"),
             toggleBtn = nav.querySelector(".toggle-btn");
             toggleBtn.addEventListener("click",()=>{
                 nav.classList.toggle("open")
             })
+}catch(error){
+    console.log("nav-menu selector is not working on here!");
+}
 function commentBtn(x)
 {
     $(".comment-asidenav").toggleClass("active");

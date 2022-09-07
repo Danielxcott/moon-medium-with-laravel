@@ -20,7 +20,7 @@
         @include("frontend.fnav")
     <!--Nav end-->
         <!--Aside start-->
-        @if (request()->url() === route("index.frontend") || request()->url() === route("user.usersearch"))
+        @if (request()->url() === route("index.frontend") || request()->url() === route("user.usersearch") ||  request()->url() === route("category.search"))
         @include("frontend.faside")
         @endif
         <!--Aside end-->

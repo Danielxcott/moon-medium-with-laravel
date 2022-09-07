@@ -6,7 +6,7 @@
     <input type="hidden" value="{{ Auth::id() }}" class="owner-id">
     <input type="hidden" value="{{ $follower->user_id }}" class="user-id">
     <div class="follower-user-profile">
-    <a href="">
+    <a href="{{ route("profile.user",base::getFollowerName($follower->user_id)->username) }}">
     @if (base::getFollowerName($follower->user_id)->profile == "" && base::getFollowerName($follower->user_id)->avatar == "")
     <img src="{{ asset("img/default/user.png") }}" alt="">
      @elseif (base::getFollowerName($follower->user_id)->profile == "" && base::getFollowerName($follower->user_id)->avatar != "")   

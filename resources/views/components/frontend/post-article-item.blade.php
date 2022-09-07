@@ -72,7 +72,7 @@
     <div class="content-article-footer">
         <div>
             <small>
-                <a href="">{{ $article->category->name }}</a>
+                <a href="/search?category={{ $article->category->slug }}">{{ $article->category->name }}</a>
             </small>
             <small>{{ $article->created_at->diffforHumans() }}</small>
         </div>

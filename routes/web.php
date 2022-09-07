@@ -62,6 +62,7 @@ Route::middleware(["auth","isBanned"])->group(function(){
     Route::post("/user/user-request/follower-count",[FrontendController::class,"followerCount"])->name("follower.count");
     Route::get("/moom-medium/user-search",[FrontendController::class,"userSearch"])->name("user.usersearch");
     Route::get("/comment/{artilce:slug}/{comment:id}/update",[CommentController::class,"update"])->name("update.fcomment");
+    Route::get("/search",[FrontendController::class,"filter"])->name("category.search");
 });
 
 
